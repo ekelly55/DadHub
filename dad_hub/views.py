@@ -30,11 +30,12 @@ class BlurbDetail(DetailView):
 
 
 class BlurbCreate(CreateView):
-    def post(self, request):
-        name = request.POST.get('name')
-        content = request.POST.get('content')
-        Blurb.objects.create(name=name, content=content)
-        return redirect('home')
+    model=Blurb
+    fields = ['content']
+    success_url = '/'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(BlurbCreate, self).form_valid(form)
     
 
 class ResponseCreate(CreateView):
