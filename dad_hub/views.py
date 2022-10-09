@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -30,7 +30,11 @@ class BlurbDetail(DetailView):
 
 
 class BlurbCreate(CreateView):
-    template_name = 'blurb_create.html'
+    def post(self, request):
+        name = request.POST.get('name')
+        content = request.POST.get('content')
+        Blurb.objects.create(name=name, content=content)
+        return redirect('home')
     
 
 class ResponseCreate(CreateView):
