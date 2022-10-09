@@ -1,9 +1,10 @@
+from re import template
 from django.shortcuts import render, redirect
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView # <- View class to handle requests
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Blurb
@@ -53,6 +54,15 @@ class BlurbCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlurbCreate, self).form_valid(form)
+
+class BlurbDelete(DeleteView):
+    model = Blurb
+    template_name = 'blurb_delete_confirmation.html'
+    success_url = '/'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blurbs'] = Blurb.objects.filter(user = self.request.user)
+        return context
     
 
 class ResponseCreate(CreateView):
