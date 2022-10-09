@@ -8,5 +8,5 @@ urlpatterns = [
     #path('<int:pk/>', views.BlurbDetail.as_view(), name="blurb_detail"),
     #path('<int:pk>/response/new', views.ResponseCreate.as_view(), name = "response_create"),
     path('new/', views.BlurbCreate.as_view(), name="blurb_create"),
-    
+    path('accounts/signup/', views.Signup.as_view(), name='signup'),
 ]

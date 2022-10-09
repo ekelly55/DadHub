@@ -4,6 +4,8 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView # <- View class to handle requests
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import Blurb
 
 
@@ -20,6 +22,21 @@ class Home(TemplateView):
 class About(TemplateView):
     template_name = 'about.html'
     
+class Signup(View):
+    def get(self, request):
+        form=UserCreationForm()
+        context = {'form': form}
+        return render(request, 'registration/signup.html', context)
+    def post(self, request):
+        form=UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            context = {'form': form}
+            return render(request, 'registration/signup.html', context)
+
 
 class Profile(DetailView):
     template_name = 'profile.html'
