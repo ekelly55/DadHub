@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
+    dependencies = [\
         ('dad_hub', '0001_initial'),
     ]
 

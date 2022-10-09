@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1> My Hubs </h1>
+
+{% for blurb in blurbs %}
+
+<p>{{blurb.name}}</p>
+<p>{{blurb.content}}</p>
+
+{% endfor %}
 {% endblock %}
