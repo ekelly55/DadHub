@@ -1,0 +1,20 @@
+MVP todo:
+
+get blurb delete working
+
+make delete ability or veiw of delete button conditional based on user_profile
+
+add response model
+
+add delete ability on response
+
+make profile model, url, views: create and detailview
+
+make profile edit and delete views
+
+add tags to blurb schema
+
+style
+
+done by wed? or thurs?
+
