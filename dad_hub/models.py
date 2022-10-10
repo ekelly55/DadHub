@@ -1,3 +1,5 @@
+
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -12,3 +14,8 @@ class Blurb(models.Model):
     def __str__(self):
         return self.user, self.content
 
+class Response(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    blurb = models.ForeignKey(Blurb, on_delete=models.CASCADE, default=12)
+    response = models.ManyToManyField('self')
+    content = models.TextField(max_length=1000, default=1)

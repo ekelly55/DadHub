@@ -7,7 +7,7 @@ from django.views.generic import DetailView # <- View class to handle requests
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Blurb
+from .models import Blurb, Response
 
 
 # Create your views here.
@@ -18,6 +18,7 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['blurbs'] = Blurb.objects.all()
+        context['responses'] = Response.objects.all()
         return context
 
 class About(TemplateView):
@@ -66,6 +67,11 @@ class BlurbDelete(DeleteView):
     
 
 class ResponseCreate(CreateView):
-    template_name = 'response_create.html'
+    model = Response
+    fields = ['content']
+    success_url = '/'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ResponseCreate, self).form_valid(form)
     
 

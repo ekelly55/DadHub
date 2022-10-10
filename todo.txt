@@ -1,7 +1,5 @@
 MVP todo:
 
-make delete ability or veiw of delete button conditional based on user_profile
-
 add response model
 
 add delete ability on response

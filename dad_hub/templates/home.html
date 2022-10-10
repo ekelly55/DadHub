@@ -30,11 +30,49 @@
 
 {% for blurb in blurbs %}
 
-<p>{{blurb.user}}</p>
-<p>{{blurb.content}}</p>
-{% if user == blurb.user %}
-<a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
-{% endif %}
+    <p>{{blurb.user}}</p>
+    <p>{{blurb.content}}</p>
+    {% if user == blurb.user %}
+        <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
+    {% endif %}
+    <p>Respond to this Blurb</p>
+    <form action="{% url 'response_create' %}" method="post">
+        {% csrf_token %}
+        <input
+            class="input"
+            type="hidden"
+            name="{{user}}"
+            required=""
+        />
+        <input
+        class="input"
+        type="hidden"
+        value={{blurb.id}}
+        required=""
+        />
+        <input
+        class="input"
+        type="hidden"
+        name="{{response}}"
+        />
+        <textarea
+            class="input"
+            type="text"
+            rows="3"
+            cols="30"
+            name="content"
+            required=""
+        ></textarea>
+        <input
+            class="button is-primary"
+            type="submit"
+            value="Add Response"
+        />
+    </form>
+        {% for response in responses %}
+        {{response.user}}
+        {{response.content}}
+        {% endfor %}
 
 {% endfor %}
 {% endblock %}
