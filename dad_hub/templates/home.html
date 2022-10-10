@@ -32,7 +32,9 @@
 
 <p>{{blurb.user}}</p>
 <p>{{blurb.content}}</p>
+{% if user == blurb.user %}
 <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
+{% endif %}
 
 {% endfor %}
 {% endblock %}
