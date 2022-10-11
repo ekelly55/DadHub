@@ -1,5 +1,6 @@
 from re import template
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -44,8 +45,20 @@ class Profile(DetailView):
     template_name = 'profile.html'
 
 
+class BlurbList(TemplateView):
+    template_name = 'blurbs.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blurbs'] = Blurb.objects.all()
+        return context
+
 class BlurbDetail(DetailView):
+    model = Blurb
     template_name = 'blurb_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['responses'] = Response.objects.all()
+        return context
 
 
 class BlurbCreate(CreateView):
@@ -66,12 +79,12 @@ class BlurbDelete(DeleteView):
          return context
     
 
-class ResponseCreate(CreateView):
-    model = Response
-    fields = ['content']
-    success_url = '/'
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(ResponseCreate, self).form_valid(form)
+class ResponseCreate(View):
+    def post(self, request, pk):
+        user = self.request.user
+        blurb = Blurb.objects.get(pk=pk)
+        content = request.POST.get('content')
+        Response.objects.create(user=user, blurb=blurb, content=content)
+        return redirect('blurb_detail', pk=pk)
     
 

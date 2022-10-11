@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% block content %}
+<div>
+    <p>{{blurb.user}}</p>
+    <p>{{blurb.content}}</p>
+    <p></p>
+</div>
+<p>Respond to this Blurb</p>
+<form action="{% url 'response_create' blurb.pk %}" method="post">
+    {% csrf_token %}
+        <div class="control">
+            <input
+            class="input"
+            type="hidden"
+            name="{{user}}"
+            required=""
+            />
+        </div>
+       <div class="control">
+
+           <textarea
+           class="input"
+           type="text"
+           rows="3"
+           cols="30"
+           name="content"
+           required=""
+           ></textarea>
+        </div>
+        <div class="control"> 
+            <input
+            class="button is-primary"
+            type="submit"
+            value="Add Response"
+            />
+        </div>
+</form>
+        {% for response in responses %}
+        {{response.user}}
+        {{response.content}}
+        {% endfor %}
+
+{% endblock %}
