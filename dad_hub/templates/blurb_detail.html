@@ -36,8 +36,9 @@
         </div>
 </form>
         {% for response in responses %}
-        {{response.user}}
-        {{response.content}}
+            {% filter response.blurb_id %}
+                {{response.user}}
+                {{response.content}}
         {% endfor %}
 
 {% endblock %}

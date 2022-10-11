@@ -1,7 +1,6 @@
 MVP todo:
 
-create responses w/ correct blurb
-(try going the blurb detail page route. if it doesn't work, try to get help from others using django)
+show only responses for that blurb
 
 add delete ability on response
 
