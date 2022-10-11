@@ -38,8 +38,10 @@
     <p>Respond to this Blurb</p>
     
         {% for response in responses %}
-        {{response.user}}
-        {{response.content}}
+        {% if response.blurb_id == blurb.id%}   
+                {{response.user}}
+                {{response.content}}
+            {% endif %}
         {% endfor %}
 
 {% endfor %}
