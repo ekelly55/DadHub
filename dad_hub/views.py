@@ -68,8 +68,9 @@ class BlurbDelete(DeleteView):
 
 class ResponseCreate(CreateView):
     model = Response
-    fields = ['content']
+    fields = ['content', 'blurb']
     success_url = '/'
+    #template_name = 'home'
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(ResponseCreate, self).form_valid(form)
