@@ -59,6 +59,7 @@ class BlurbDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['responses'] = Response.objects.all()
         return context
+    
 
 
 class BlurbCreate(CreateView):

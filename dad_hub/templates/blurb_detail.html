@@ -36,9 +36,10 @@
         </div>
 </form>
         {% for response in responses %}
-            {% filter response.blurb_id %}
+            {% if response.blurb_id == blurb.id%}   
                 {{response.user}}
                 {{response.content}}
+            {% endif %}
         {% endfor %}
 
 {% endblock %}
