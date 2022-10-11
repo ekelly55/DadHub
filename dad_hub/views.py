@@ -44,8 +44,19 @@ class Profile(DetailView):
     template_name = 'profile.html'
 
 
+class BlurbList(TemplateView):
+    template_name = 'blurbs.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blurbs'] = Blurb.objects.all()
+        return context
+
 class BlurbDetail(DetailView):
+    model = Blurb
     template_name = 'blurb_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['responses'] = Response.objects.all()
 
 
 class BlurbCreate(CreateView):
