@@ -1,5 +1,6 @@
 from re import template
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -79,11 +80,11 @@ class BlurbDelete(DeleteView):
     
 
 class ResponseCreate(View):
-    def post(self, request):
-        user = request.POST.get('user')
-        blurb = Blurb.objects.get('blurb')
+    def post(self, request, pk):
+        user = self.request.user
+        blurb = Blurb.objects.get(pk=pk)
         content = request.POST.get('content')
         Response.objects.create(user=user, blurb=blurb, content=content)
-        return redirect('home')
+        return redirect('blurb_detail', pk=pk)
     
 
