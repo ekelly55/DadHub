@@ -39,6 +39,9 @@
             {% if response.blurb_id == blurb.id%}   
                 {{response.user}}
                 {{response.content}}
+                {% if user == response.user %}
+                <a href="/{{response.id}}/delete" class="button is-danger">Delete</a>
+                {% endif %}
             {% endif %}
         {% endfor %}
 

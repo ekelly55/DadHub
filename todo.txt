@@ -1,8 +1,5 @@
 MVP todo:
 
-show only responses for that blurb
-
-add delete ability on response
 
 make profile model, url, views: create and detailview
 

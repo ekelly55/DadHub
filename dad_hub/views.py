@@ -80,7 +80,14 @@ class BlurbDelete(DeleteView):
          context['blurbs'] = Blurb.objects.filter(user = self.request.user)
          return context
     
-
+class ResponseDelete(DeleteView):
+    model = Response
+    template_name = 'response_delete_confirmation.html'
+    success_url = '/blurbs/'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['responses'] = Response.objects.all()
+        return context
 class ResponseCreate(View):
     def post(self, request, pk):
         user = self.request.user

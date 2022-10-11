@@ -8,6 +8,7 @@ urlpatterns = [
     #path('accounts/users/<int:pk>/', views.Profile.as_view(), name = "user_profile"),
     path('blurbs/<int:pk>/', views.BlurbDetail.as_view(), name="blurb_detail"),
     path('blurbs/<int:pk>/responses/new/', views.ResponseCreate.as_view(), name = "response_create"),
+    path('<int:pk>/delete/', views.ResponseDelete.as_view(), name="response_delete"),
     path('new/', views.BlurbCreate.as_view(), name="blurb_create"),
     path('<int:pk>/delete/', views.BlurbDelete.as_view(), name ='blurb_delete'),
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
