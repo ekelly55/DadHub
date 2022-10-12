@@ -74,7 +74,7 @@ class BioUpdate(UpdateView):
 
 class BlurbCreate(CreateView):
     model=Blurb
-    fields = ['content']
+    fields = ['content', 'image', 'link']
     success_url = '/'
     def form_valid(self, form):
         form.instance.user = self.request.user

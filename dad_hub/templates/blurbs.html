@@ -22,6 +22,18 @@
         required=""
     ></textarea>
     <input
+    class="input"
+    type="text"
+    name="image"
+    placeholder="add an image"
+    />
+    <input
+    class="input"
+    type="text"
+    name="link" 
+    placeholder="add a link"
+    />
+    <input
         class="button is-primary" 
         type="submit" 
         value="Add Blurb"
@@ -32,6 +44,8 @@
 
     <p>{{blurb.user}}</p>
     <p>{{blurb.content}}</p>
+    <img src="{{blurb.image}}"/>
+    <a href="{{blurb.link}}">{{blurb.link}}</a>
     {% if user == blurb.user %}
         <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
     {% endif %}
