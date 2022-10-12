@@ -23,18 +23,5 @@ class Response(models.Model):
     def __str__(self):
         return self.user, self.content, self.blurb.content
 
-class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    picture = models.CharField(max_length=200)
-    state = models.CharField(max_length=2)
-    county = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=5)
-    children_age = ArrayField(models.CharField(max_length=20))
-    interests = ArrayField(models.CharField(max_length=20))
-    bio = models.TextField(max_length=300)
-    
-    def __str__(self):
-        return self.user
 
- 
             
