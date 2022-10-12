@@ -8,7 +8,7 @@ from django.views.generic import DetailView # <- View class to handle requests
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Blurb, Response
+from .models import Bio, Blurb, Response
 
 
 # Create your views here.
@@ -69,6 +69,15 @@ class BlurbCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlurbCreate, self).form_valid(form)
+
+class BioCreate(CreateView):
+    model=Bio
+    fields = ['picture', 'state', 'county', 'zip', 'kids_ages', 'interests', 'bio']
+    template_name = 'bio_create.html'
+    success_url = '/'
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super(BioCreate, self).form_valid(form)
 
 
 
