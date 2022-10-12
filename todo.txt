@@ -7,8 +7,6 @@ restrict access to bio create form if bio exists
 or
 make a 1:1 field so a user can't make multi bios
 
-make profile edit views
-
 add tags, optional photo and link to blurb schema
 
 try to add responses to responses

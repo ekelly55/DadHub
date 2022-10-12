@@ -24,13 +24,13 @@ class Response(models.Model):
         return self.user, self.content, self.blurb.content
 
 class Bio(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default = 1)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default = 1)
     picture = models.CharField(max_length=200)
     state = models.CharField(max_length=2)
     county = models.CharField(max_length=20)
     zip = models.CharField(max_length=5)
     kids_ages = ArrayField(models.CharField(max_length=2))
-    interests = ArrayField(models.CharField(max_length=10))
+    interests = ArrayField(models.CharField(max_length=20))
     bio = models.TextField(max_length=200)
 
     def __str__(self):
