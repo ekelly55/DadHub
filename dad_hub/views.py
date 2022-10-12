@@ -60,7 +60,10 @@ class BlurbDetail(DetailView):
         context['responses'] = Response.objects.all()
         return context
     
-
+class BioDetail(DetailView):
+    model =Bio
+    template_name = 'bio_detail.html'
+  
 
 class BlurbCreate(CreateView):
     model=Blurb

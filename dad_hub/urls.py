@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:pk>/delete/', views.BlurbDelete.as_view(), name ='blurb_delete'),
     path('accounts/signup/', views.Signup.as_view(), name='signup'),
     path('bios/new/', views.BioCreate.as_view(), name='bio_create'),
+    path('bios/<int:pk>/', views.BioDetail.as_view(), name='bio_detail'),
 ]
