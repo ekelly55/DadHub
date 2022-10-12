@@ -14,7 +14,7 @@ class Blurb(models.Model):
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=200, blank=True, default="")
     link = models.URLField(max_length=200, blank=True, default="")
-    tags = ArrayField(models.CharField(max_length=20, blank=True, default=""))
+    tags = ArrayField(models.CharField(max_length=20, blank=True), default=list)
     created_at=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

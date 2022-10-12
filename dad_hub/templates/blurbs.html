@@ -52,6 +52,7 @@
     <p>{{blurb.content}}</p>
     <img src="{{blurb.image}}"/>
     <a href="{{blurb.link}}">{{blurb.link}}</a>
+    <p>{{blurb.tags}}</p>
     {% if user == blurb.user %}
         <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
     {% endif %}
