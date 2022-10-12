@@ -63,7 +63,14 @@ class BlurbDetail(DetailView):
 class BioDetail(DetailView):
     model =Bio
     template_name = 'bio_detail.html'
-  
+
+class BioUpdate(UpdateView):
+    model=Bio
+    fields = ['picture', 'state', 'county', 'zip', 'kids_ages', 'interests', 'bio']
+    template_name = 'bio_update.html'
+    success_url = '/bios/<int:pk>'
+    def get_success_url(self):
+        return reverse('bio_detail', kwargs={'pk': self.object.pk})
 
 class BlurbCreate(CreateView):
     model=Blurb
