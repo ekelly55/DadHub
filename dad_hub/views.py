@@ -43,6 +43,8 @@ class Signup(View):
 
 class Profile(DetailView):
     template_name = 'profile.html'
+    
+        
 
 
 class BlurbList(TemplateView):
@@ -70,6 +72,14 @@ class BlurbCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlurbCreate, self).form_valid(form)
+
+class ProfileCreate(CreateView):
+    model=Profile
+    fields = ['picture', 'state', 'county', 'zip_code', 'children_age', 'interests', 'bio']
+    success_url = '/profiles/<int:pk>'
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ProfileCreate, self).form_valid(form)
 
 class BlurbDelete(DeleteView):
     model = Blurb

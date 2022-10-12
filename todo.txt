@@ -7,6 +7,8 @@ make profile edit and delete views
 
 add tags, optional photo and link to blurb schema
 
+try to add responses to responses
+
 style
 
 done by wed? or thurs?
