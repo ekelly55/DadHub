@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 
+
+
 # Create your models here.
 # we'll need blurbs, profile, response
 
@@ -12,6 +14,7 @@ class Blurb(models.Model):
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=200, blank=True, default="")
     link = models.URLField(max_length=200, blank=True, default="")
+    tags = ArrayField(models.CharField(max_length=20, blank=True, default=""))
     created_at=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
