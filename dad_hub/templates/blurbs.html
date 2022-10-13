@@ -15,6 +15,51 @@
     {% for blurb in blurbs %}
 
     <div class="row row-cols-auto>">
+<form action="{% url 'blurb_create' %}" method="post">
+    {% csrf_token %}
+    <input
+        class="input"
+        type="hidden"
+        name="{{user}}"
+        required=""
+    />
+    <textarea
+        class="input"
+        type="text"
+        rows="4"
+        cols="50"
+        name="content"
+        placeholder="Start a conversation..."
+        required=""
+    ></textarea>
+    <input
+    class="input"
+    type="text"
+    name="image"
+    placeholder="add an image"
+    />
+    <input
+    class="input"
+    type="text"
+    name="link" 
+    placeholder="add a link"
+    />
+    <input
+        class="input"
+        type="text"
+        name="tags"
+        placeholder="tags"
+        multiple>
+
+    <input
+        class="button is-primary" 
+        type="submit" 
+        value="Add Blurb"
+    />
+</form>
+
+{% for blurb in blurbs %}
+<div class="blurbcontainer">
     
         <div class="col-3 border bg-light">
 
