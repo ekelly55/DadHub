@@ -11,6 +11,7 @@ from django.contrib.auth import login
 from .models import Bio, Blurb, Response
 
 
+
 # Create your views here.
 
 # Here we will be creating a class called Home and extending it from the View class
@@ -35,14 +36,11 @@ class Signup(View):
         else:
             context = {'form': form}
             return render(request, 'registration/signup.html', context)
-
-
-
-    
+ 
 
 class BlurbList(TemplateView):
     template_name = 'blurbs.html'
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs,):
         context = super().get_context_data(**kwargs)
         context['blurbs'] = Blurb.objects.all()
         context['responses'] = Response.objects.all()
@@ -52,6 +50,7 @@ class BlurbDetail(DetailView):
     model = Blurb
     template_name = 'blurb_detail.html'
     def get_context_data(self, **kwargs):
+        form = BlurbForm()
         context = super().get_context_data(**kwargs)
         context['responses'] = Response.objects.all()
         return context
@@ -70,7 +69,8 @@ class BioUpdate(UpdateView):
 
 class BlurbCreate(CreateView):
     model=Blurb
-    fields = ['content', 'image', 'link']
+    fields = ['content', 'image', 'link', 'tags']
+    template_name = 'blurb_create.html'
     success_url = '/blurbs/'
     def form_valid(self, form):
         form.instance.user = self.request.user

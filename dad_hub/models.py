@@ -1,8 +1,10 @@
 
 from email.policy import default
+from http.cookies import BaseCookie
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.forms import ModelForm
 
 
 
@@ -19,6 +21,8 @@ class Blurb(models.Model):
 
     def __str__(self):
         return self.user, self.content, self.id
+
+
 
 class Response(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
