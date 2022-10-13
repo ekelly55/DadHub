@@ -2,68 +2,33 @@
 {% block content %}
 <h1> My Hub </h1>
 
-<h2>Share a Blurb to start a conversation:</h2>
-
-<form action="{% url 'blurb_create' %}" method="post">
-    {% csrf_token %}
-    <input
-        class="input"
-        type="hidden"
-        name="{{user}}"
-        required=""
-    />
-    <textarea
-        class="input"
-        type="text"
-        rows="4"
-        cols="50"
-        name="content"
-        placeholder="Start a conversation..."
-        required=""
-    ></textarea>
-    <input
-    class="input"
-    type="text"
-    name="image"
-    placeholder="add an image"
-    />
-    <input
-    class="input"
-    type="text"
-    name="link" 
-    placeholder="add a link"
-    />
-    <input
-        class="input"
-        type="text"
-        name="tags"
-        placeholder="tags"
-    />
-    <input
-        class="button is-primary" 
-        type="submit" 
-        value="Add Blurb"
-    />
-</form>
-
 {% for blurb in blurbs %}
-
+<div class="blurbcontainer">
+    <h3>this is a blurb</h3>
     <p>{{blurb.user}}</p>
     <p>{{blurb.content}}</p>
-    <img src="{{blurb.image}}"/>
+    <img src="{{blurb.image}}" />
     <a href="{{blurb.link}}">{{blurb.link}}</a>
     <p>{{blurb.tags}}</p>
     {% if user == blurb.user %}
-        <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
+    <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
     {% endif %}
-    <p>Respond to this Blurb</p>
-    
+    <a href="/blurbs/{{blurb.id}}">See More</a>
+    <h3>Responses</h3>
+
+    <div class="responselist">
         {% for response in responses %}
-        {% if response.blurb_id == blurb.id%}   
-                {{response.user}}
-                {{response.content}}
+        {% if response.blurb_id == blurb.id%}
+        <div class="responsecontainer">
+            <h4>this is a response to the blurb above</h4>
+
+            <p>{{response.user}}</p>
+            <p>{{response.content}}</p>
+        </div>
             {% endif %}
         {% endfor %}
+    </div>
 
+</div>
 {% endfor %}
 {% endblock %}

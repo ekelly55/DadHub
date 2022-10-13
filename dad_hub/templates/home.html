@@ -1,48 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> My Hub </h1>
+<h1> Welcome! </h1>
 
-<h2>Share a Blurb to start a conversation:</h2>
-
-<form action="{% url 'blurb_create' %}" method="post">
-    {% csrf_token %}
-    <input
-        class="input"
-        type="hidden"
-        name="{{user}}"
-        required=""
-    />
-    <textarea
-        class="input"
-        type="text"
-        rows="4"
-        cols="50"
-        name="content"
-        placeholder="Start a conversation..."
-        required=""
-    ></textarea>
-    <input
-        class="button is-primary" 
-        type="submit" 
-        value="Add Blurb"
-    />
-</form>
-
-{% for blurb in blurbs %}
-
-    <p>{{blurb.user}}</p>
-    <p>{{blurb.content}}</p>
-    {% if user == blurb.user %}
-        <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
-    {% endif %}
-    <p>Respond to this Blurb</p>
-   
-        {% for response in responses %}
-        {% if response.blurb_id == blurb.id%}   
-                {{response.user}}
-                {{response.content}}
-            {% endif %}
-        {% endfor %}
-
-{% endfor %}
 {% endblock %}

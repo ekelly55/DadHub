@@ -1,11 +1,12 @@
 MVP todo:
 
 
-add tags, optional photo and link to blurb schema
 
-try to add responses to responses
 
 style
 
 done by wed? or thurs?
+
+try to add responses to responses
+get blurb form onto blurb page
 

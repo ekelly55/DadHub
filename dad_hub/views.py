@@ -16,11 +16,7 @@ from .models import Bio, Blurb, Response
 # Here we will be creating a class called Home and extending it from the View class
 class Home(TemplateView):
     template_name = 'home.html'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['blurbs'] = Blurb.objects.all()
-        context['responses'] = Response.objects.all()
-        return context
+   
 
 class About(TemplateView):
     template_name = 'about.html'
@@ -75,7 +71,7 @@ class BioUpdate(UpdateView):
 class BlurbCreate(CreateView):
     model=Blurb
     fields = ['content', 'image', 'link']
-    success_url = '/'
+    success_url = '/blurbs/'
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(BlurbCreate, self).form_valid(form)
@@ -84,7 +80,7 @@ class BioCreate(CreateView):
     model=Bio
     fields = ['picture', 'state', 'county', 'zip', 'kids_ages', 'interests', 'bio']
     template_name = 'bio_create.html'
-    success_url = '/'
+    success_url = '/blurbs/'
     def form_valid(self, form):
         form.instance.user=self.request.user
         return super(BioCreate, self).form_valid(form)
@@ -94,7 +90,7 @@ class BioCreate(CreateView):
 class BlurbDelete(DeleteView):
     model = Blurb
     template_name = 'blurb_delete_confirmation.html'
-    success_url = '/'
+    success_url = '/blurbs/'
     def get_context_data(self, **kwargs):
          context = super().get_context_data(**kwargs)
          context['blurbs'] = Blurb.objects.filter(user = self.request.user)
@@ -108,6 +104,7 @@ class ResponseDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context['responses'] = Response.objects.all()
         return context
+
 class ResponseCreate(View):
     def post(self, request, pk):
         user = self.request.user
