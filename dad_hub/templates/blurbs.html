@@ -2,46 +2,58 @@
 {% block content %}
 <h1> My Hub </h1>
 
-{% for blurb in blurbs %}
-<div class="blurbcontainer">
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+<div class="container">
+    {% for blurb in blurbs %}
+
+    <div class="row row-cols-auto>">
     
-    <p><strong>{{blurb.user}}</strong></p>
-    <p>{{blurb.content}}</p>
-    {% if blurb.link != "" %}
-        <img src="{{blurb.image}}" />
-    {% endif %}
-    {% if blurb.link != ""%}
-        <p>Link:</p>
-        <a href="{{blurb.link}}">{{blurb.link}}</a>
-    {% endif %}
-    <p>tags:</p>
-    {% for tag in blurb.tags %}
-    <p>{{tag}}</p>
-    {% endfor %}
+        <div class="col-3 border bg-light">
 
-    {% if user == blurb.user %}
-    <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
-    {% endif %}
-    <a href="/blurbs/{{blurb.id}}">See More</a>
-    <div class="responsesection">
 
-        <h3>Responses</h3>
-        
-        {% for response in responses %}
-        {% if response.blurb_id == blurb.id%}
-        <div class="responselist">
-            <div class="responsecontainer">
-                <p><strong>{{response.user}}</strong></p>
-                <p>{{response.content}}</p>
-            </div>
+            <p><strong>{{blurb.user}}</strong></p>
+            <p>{{blurb.content}}</p>
+            {% if blurb.link != "" %}
+            <img src="{{blurb.image}}" />
+            {% endif %}
+            {% if blurb.link != ""%}
+            <p>Link:</p>
+            <a href="{{blurb.link}}">{{blurb.link}}</a>
+            {% endif %}
+            <p>tags:</p>
+            {% for tag in blurb.tags %}
+            <p>{{tag}}</p>
+            {% endfor %}
+
+            {% if user == blurb.user %}
+            <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
+            {% endif %}
+            <a href="/blurbs/{{blurb.id}}">See More</a>
+
         </div>
+        <div class="col-3 border bg-light">
+            <h3>Responses</h3>
+
+            {% for response in responses %}
+            {% if response.blurb_id == blurb.id%}
+            
+                    <p><strong>{{response.user}}</strong></p>
+                    <p>{{response.content}}</p>
+             
             {% endif %}
             {% endfor %}
-            
-        
-
+        </div>
     </div>
 
+    
+    {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}
