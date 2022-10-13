@@ -4,29 +4,42 @@
 
 {% for blurb in blurbs %}
 <div class="blurbcontainer">
-    <h3>this is a blurb</h3>
-    <p>{{blurb.user}}</p>
+    
+    <p><strong>{{blurb.user}}</strong></p>
     <p>{{blurb.content}}</p>
-    <img src="{{blurb.image}}" />
-    <a href="{{blurb.link}}">{{blurb.link}}</a>
-    <p>{{blurb.tags}}</p>
+    {% if blurb.link != "" %}
+        <img src="{{blurb.image}}" />
+    {% endif %}
+    {% if blurb.link != ""%}
+        <p>Link:</p>
+        <a href="{{blurb.link}}">{{blurb.link}}</a>
+    {% endif %}
+    <p>tags:</p>
+    {% for tag in blurb.tags %}
+    <p>{{tag}}</p>
+    {% endfor %}
+
     {% if user == blurb.user %}
     <a href="/{{blurb.id}}/delete" class="button is-danger">Delete</a>
     {% endif %}
     <a href="/blurbs/{{blurb.id}}">See More</a>
-    <h3>Responses</h3>
+    <div class="responsesection">
 
-    <div class="responselist">
+        <h3>Responses</h3>
+        
         {% for response in responses %}
         {% if response.blurb_id == blurb.id%}
-        <div class="responsecontainer">
-            <h4>this is a response to the blurb above</h4>
-
-            <p>{{response.user}}</p>
-            <p>{{response.content}}</p>
+        <div class="responselist">
+            <div class="responsecontainer">
+                <p><strong>{{response.user}}</strong></p>
+                <p>{{response.content}}</p>
+            </div>
         </div>
             {% endif %}
-        {% endfor %}
+            {% endfor %}
+            
+        
+
     </div>
 
 </div>
