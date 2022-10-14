@@ -1,0 +1,33 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h1>My Bio</h1>
+
+    <div>
+        <p>Username: {{bio.user.username}}</p>
+    </div>
+    <div>
+        <img src="{{bio.picture}}"/>
+    </div>
+ 
+    <div>
+        <p>Location: {{bio.state}}, {{bio.county}} county, {{bio.zip}}</p>
+    </div>
+  
+    <div>
+        <p>Kids Ages:</p>
+        {% for age in bio.kids_ages%}
+        <p>{{age}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <p>Interests:</p>
+        {% for interest in bio.interests%}
+        <p>{{interest}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <p>About Me:</p>
+        <p>{{bio.bio}}</p>
+    </div>
+
+{% endblock %}

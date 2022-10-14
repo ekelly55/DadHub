@@ -1,0 +1,21 @@
+form method="post" action="{% url 'profile_create' %}">
+    {% csrf_token %}
+    <div class="control">
+        <input 
+            class="input"
+            type="hidden"
+            name="{{user}}"
+            required=""
+        />
+    </div>
+    <div class="control">
+        <input 
+            class="input"
+            type="text"
+            name="zip_code"
+        />
+    </div>
+    <div class="control">
+        <input type="submit" class="btn" value="Create"/>
+    </div>
+</form>
