@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container">
-    <div class="row">
-      <div class="col">col</div>
-      <div class="col">col</div>
-      <div class="col">col</div>
-      <div class="col">col</div>
-    </div>
-    <div class="row">
-      <div class="col-8">col-8</div>
-      <div class="col-4">col-4</div>
-    </div>
-  </div>
 
 <h1> My Hub </h1>
 
@@ -62,16 +50,16 @@
         <!-- blurb section row -->
 
         {% for blurb in blurbs %}
-        <div class="col-md m-2 h-auto">
+        <div class="col-md m-2" style="min-width: 250px; max-width: 500px">
             <!-- each blurb col -->
 
-            <div class="container blurb_container">
+            <div class="container blurb_container p-2">
 
 
                 <div class="row border bg-light blurb-response row">
                     <div class="col blurb-col">
                         
-                        <div class="card w-100 h-100">
+                        <div class="card w-100 h-80 mt-2 mb-2">
                             {% if blurb.image != "" %}
                             <img src="{{blurb.image}}" class="card-img-top" alt="...">
                             {% endif %}
@@ -105,14 +93,15 @@
 
 
                     <div class="col-3 p-3 border bg-light response-col w-100">
-                        
-                        <a class="btn btn-primary" data-toggle="collapse" href="#{{blurb.user}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Responses
-                        </a>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <a class="btn btn-primary m-3" data-toggle="collapse" href="#{{blurb.user}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Responses
+                            </a>
+                        </div>
                         {% for response in responses %}
                         {% if response.blurb_id == blurb.id%}
                         
-                        <div class="collapse" id="{{blurb.user}}responses">
+                        <div class="collapse border p-2" id="{{blurb.user}}responses">
     
                             <p><strong>{{response.user}}</strong></p>
                             <p class="p-2">{{response.content}}</p>
