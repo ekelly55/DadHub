@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="container px-4">
-    <div class="row gx-5">
-      <div class="col">
-       <div class="p-3 border bg-light">Custom column padding</div>
-      </div>
-      <div class="col">
-        <div class="p-3 border bg-light">Custom column padding</div>
-      </div>
-    </div>
+
+   <a class="btn btn-primary" data-toggle="collapse" href="#responses" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Responses
+    </a>
+  
+  <div class="collapse" id="responses">
+    
+        <p><strong>{{response.user}}</strong></p>
+        <p class="p-2">{{response.content}}</p>
+    
   </div>
 
 <h1> My Hub </h1>
@@ -55,65 +56,84 @@
 </div>
 
 <div class="container px-4">
+    <!-- blurb section container  -->
+    <div class="row">
+        <!-- blurb section row -->
 
-    {% for blurb in blurbs %}
-    <div class="blurbcontainer">
+        {% for blurb in blurbs %}
+        <div class="col">
+            <!-- each blurb col -->
 
-        <div class="row gx-5">
-            
-            <div class="col-3 p-3 border bg-light">
+            <div class="container blurb_container">
 
-                <div class="card w-100 h-100">
-                    {% if blurb.image != "" %}
-                    <img src="{{blurb.image}}" class="card-img-top" alt="...">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{blurb.user}}</h5>
-                        <p class="card-text">{{blurb.content}}</p>
-                        {% if blurb.link != "" %}
-                        <p>Link:</p>
-                        <a href="{{blurb.link}}">{{blurb.link}}</a>
-                        {% endif %}
-                        <p>tags:</p>
-                        <p>
-                        {% for tag in blurb.tags %}
-                            #{{tag}} 
-                        {% endfor %}
-                         </p>
-                        <div>
 
-                            {% if user == blurb.user %}
-                            <a href="/{{blurb.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                <div class="row border bg-light blurb-response row">
+                    <div class="col blurb-col">
+                        
+                        <div class="card w-100 h-100">
+                            {% if blurb.image != "" %}
+                            <img src="{{blurb.image}}" class="card-img-top" alt="...">
                             {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{blurb.user}}</h5>
+                                <p class="card-text">{{blurb.content}}</p>
+                                {% if blurb.link != "" %}
+                                <p>Link:</p>
+                                <a href="{{blurb.link}}">{{blurb.link}}</a>
+                                {% endif %}
+                                <p>tags:</p>
+                                <p>
+                                    {% for tag in blurb.tags %}
+                                    #{{tag}}
+                                    {% endfor %}
+                                </p>
+                                <div>
+                                    
+                                    {% if user == blurb.user %}
+                                    <a href="/{{blurb.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    
+                                    <a href="/blurbs/{{blurb.id}}" class="btn btn-secondary btn-sm">See More</a>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-
-                            <a href="/blurbs/{{blurb.id}}" class="btn btn-secondary btn-sm">See More</a>
-                        </div>
+                        <!-- blurb col -->
                     </div>
+
+
+                    <div class="col-3 p-3 border bg-light response-col w-100">
+                        
+                        <a class="btn btn-primary" data-toggle="collapse" href="#{{blurb.user}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Responses
+                        </a>
+                        {% for response in responses %}
+                        {% if response.blurb_id == blurb.id%}
+                        
+                        <div class="collapse" id="{{blurb.user}}responses">
+    
+                            <p><strong>{{response.user}}</strong></p>
+                            <p class="p-2">{{response.content}}</p>
+                        
+                      </div>
+                        
+                        
+                        {% endif %}
+                        {% endfor %}
+                        <!-- response col -->
+                    </div>
+                <!-- blurb-response row -->
                 </div>
-
-
-
+            <!--  blurb container -->
             </div>
-            <div class="col-3 p-3 border bg-light">
-                <h4>Responses</h4>
 
-                {% for response in responses %}
-                {% if response.blurb_id == blurb.id%}
-                <div class="p-2 border mb-1" >
-                    <p><strong>{{response.user}}</strong></p>
-                    <p class="p-2">{{response.content}}</p>
-                </div>
 
-                {% endif %}
-                {% endfor %}
-            </div>
+            <!-- each blurb col -->
         </div>
-
-
         {% endfor %}
+        <!-- blurb section row -->
     </div>
-
-
-    {% endblock %}
+    <!-- blurb section container -->
+</div>
+{% endblock %}
