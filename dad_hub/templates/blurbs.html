@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-   <a class="btn btn-primary" data-toggle="collapse" href="#responses" role="button" aria-expanded="false" aria-controls="collapseExample">
-      Responses
-    </a>
-  
-  <div class="collapse" id="responses">
-    
-        <p><strong>{{response.user}}</strong></p>
-        <p class="p-2">{{response.content}}</p>
-    
+<div class="container">
+    <div class="row">
+      <div class="col">col</div>
+      <div class="col">col</div>
+      <div class="col">col</div>
+      <div class="col">col</div>
+    </div>
+    <div class="row">
+      <div class="col-8">col-8</div>
+      <div class="col-4">col-4</div>
+    </div>
   </div>
 
 <h1> My Hub </h1>
@@ -55,13 +56,13 @@
     </div>
 </div>
 
-<div class="container px-4">
+<div class="container-sm">
     <!-- blurb section container  -->
     <div class="row">
         <!-- blurb section row -->
 
         {% for blurb in blurbs %}
-        <div class="col">
+        <div class="col-md m-2 h-auto">
             <!-- each blurb col -->
 
             <div class="container blurb_container">
