@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="containter m-5 border">
 
-<h1> My Hub </h1>
+    <h1> My Hub </h1>
+</div>
 
 <div class="container mb-5">
     <div class="row">
@@ -37,7 +39,7 @@
         </div>
         <div class="row">
             <div class="col-1">
-                <input class="button is-primary" type="submit" value="Add Blurb" />
+                <input class="button btn-secondary is-primary" type="submit" value="Add Blurb" />
             </div>
         </div>
         </form>
@@ -84,7 +86,7 @@
                                 </div>
                                 <div>
                                     
-                                    <a href="/blurbs/{{blurb.id}}" class="btn btn-secondary btn-sm">See More</a>
+                                    <a href="/blurbs/{{blurb.id}}" class="btn btn-secondary btn-sm">Add a Response</a>
                                 </div>
                             </div>
                         </div>
