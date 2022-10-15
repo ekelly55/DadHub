@@ -5,16 +5,17 @@ MVP todo:
 
 style
 home
-delete conf
+
 signup
 profile
 create/edit profile
+
+add back in response_delete
 
 remove about and blurb create pages
 
 rather than clicking a button to see responses, what if the div was highlighted if responses exist? then the whole thing is a link to expand?
 
-get hamburger menu to work
 
 next steps functionally:
 search function: tags, users
