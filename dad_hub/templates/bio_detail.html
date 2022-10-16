@@ -19,6 +19,12 @@
                             {%endfor %}</li>
                         <li class="list-group-item"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
                     </ul>
+                    {% if user == bio.user %}
+                    <div class="d-flex align-items-center justify-content-center">
+                                    
+                        <a href="/bios/{{bio.id}}/update" class="btn btn-secondary btn-sm">Update Bio</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <!-- bio col -->

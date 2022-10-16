@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
+    {% if request.user == blurb.user %}
     <h1> You sure about that Dad? </h1>
     <form method="post">
         {% csrf_token %}
@@ -9,5 +10,9 @@
             <a type="button" class="btn btn-success" href="{% url 'blurbs' %}">Nevermind</a>
         </div>
     </form>
+    {% else %}
+    <h3>Oops, are you lost?</h3>
+    <a href="/blurbs" class="btn btn-success btn-lg m-5">Back This Way</a>
+    {% endif %}
 </div>
 {% endblock %}

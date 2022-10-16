@@ -2,15 +2,17 @@ MVP todo:
 
 
 
+func:
 
-style
-home
 
-signup
 
-create/edit profile
 
-remove about and blurb create pages
+]
+
+
+
+create/edit profile: these are form as p, so will take some work to redo. is it worth it?
+
 
 rather than clicking a button to see responses, what if the div was highlighted if responses exist? then the whole thing is a link to expand?
 

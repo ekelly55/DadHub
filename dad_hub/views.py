@@ -9,6 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Bio, Blurb, Response
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 
@@ -32,7 +34,7 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('/')
+            return redirect('/bios/new')
         else:
             context = {'form': form}
             return render(request, 'registration/signup.html', context)
@@ -47,6 +49,7 @@ class BlurbList(TemplateView):
         context['bios'] = Bio.objects.all()
         return context
 
+@method_decorator(login_required, name = 'dispatch')
 class BlurbDetail(DetailView):
     model = Blurb
     template_name = 'blurb_detail.html'
@@ -55,6 +58,7 @@ class BlurbDetail(DetailView):
         context['responses'] = Response.objects.all()
         return context
     
+@method_decorator(login_required, name = 'dispatch')
 class BioDetail(DetailView):
     model =Bio
     template_name = 'bio_detail.html'
@@ -63,7 +67,7 @@ class BioDetail(DetailView):
         context['blurbs'] = Blurb.objects.all()
         return context
 
-
+@method_decorator(login_required, name = 'dispatch')
 class BioUpdate(UpdateView):
     model=Bio
     fields = ['picture', 'state', 'county', 'zip', 'kids_ages', 'interests', 'bio']
@@ -72,6 +76,7 @@ class BioUpdate(UpdateView):
     def get_success_url(self):
         return reverse('bio_detail', kwargs={'pk': self.object.pk})
 
+@method_decorator(login_required, name = 'dispatch')
 class BlurbCreate(CreateView):
     model=Blurb
     fields = ['content', 'image', 'link', 'tags']
@@ -81,6 +86,7 @@ class BlurbCreate(CreateView):
         form.instance.user = self.request.user
         return super(BlurbCreate, self).form_valid(form)
 
+@method_decorator(login_required, name = 'dispatch')
 class BioCreate(CreateView):
     model=Bio
     fields = ['picture', 'state', 'county', 'zip', 'kids_ages', 'interests', 'bio']
@@ -91,7 +97,7 @@ class BioCreate(CreateView):
         return super(BioCreate, self).form_valid(form)
 
 
-
+@method_decorator(login_required, name = 'dispatch')
 class BlurbDelete(DeleteView):
     model = Blurb
     template_name = 'blurb_delete_confirmation.html'
@@ -100,7 +106,8 @@ class BlurbDelete(DeleteView):
          context = super().get_context_data(**kwargs)
          context['blurbs'] = Blurb.objects.filter(user = self.request.user)
          return context
-    
+
+@method_decorator(login_required, name = 'dispatch')
 class ResponseDelete(DeleteView):
     model = Response
     template_name = 'response_delete_confirmation.html'
@@ -110,6 +117,7 @@ class ResponseDelete(DeleteView):
         context['responses'] = Response.objects.all()
         return context
 
+@method_decorator(login_required, name = 'dispatch')
 class ResponseCreate(View):
     def post(self, request, pk):
         user = self.request.user
