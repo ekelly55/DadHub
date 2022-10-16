@@ -44,6 +44,7 @@ class BlurbList(TemplateView):
         context = super().get_context_data(**kwargs)
         context['blurbs'] = Blurb.objects.all()
         context['responses'] = Response.objects.all()
+        context['bios'] = Bio.objects.all()
         return context
 
 class BlurbDetail(DetailView):
@@ -57,6 +58,11 @@ class BlurbDetail(DetailView):
 class BioDetail(DetailView):
     model =Bio
     template_name = 'bio_detail.html'
+    def get_context_data(self, **kwargs,):
+        context = super().get_context_data(**kwargs)
+        context['blurbs'] = Blurb.objects.all()
+        return context
+
 
 class BioUpdate(UpdateView):
     model=Bio

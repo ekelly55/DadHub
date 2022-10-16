@@ -10,7 +10,6 @@ signup
 profile
 create/edit profile
 
-add back in response_delete
 
 remove about and blurb create pages
 
