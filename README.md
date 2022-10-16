@@ -50,7 +50,7 @@ ERD: ![ERD](blob:https://imgur.com/9ea36179-064e-40ce-ac43-23f19df6a125 "ERD")
 
 ## Deployed App
 
-Landing Page: ![Landing Page](https://i.imgur.com/OkdLJwL.png "Landing Page")
+Landing Page: ![Landing Page](https://i.imgur.com/6dtmNgv.png "Landing Page")
 Blurbs and Create Form: ![Blurbs and form](https://i.imgur.com/OkdLJwL.png "Blurbs and form")
 Blurbs: ![Blurbs](https://i.imgur.com/mLB2bGo.png "Blurbs")
 Bio Page: ![Bio](https://i.imgur.com/9Jap0LA.png "Bio")
