@@ -46,7 +46,7 @@ Bio: ![Bio](https://i.imgur.com/0FBoRWu.jpg "Bio")
 
 ## ERD
 
-ERD: ![ERD](https://imgur.com/9ea36179-064e-40ce-ac43-23f19df6a125 "ERD")
+ERD: ![ERD](https://i.imgur.com/peVd9xD.jpg "ERD")
 
 ## Deployed App
 
