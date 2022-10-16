@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="containter m-5 border">
+<div class="page-title pt-2 pb-2 ps-5 border">
 
     <h1> My Hub </h1>
 </div>
 
-<div class="container mb-5">
+<div class="container mt-5 mb-5">
     <div class="row">
 
         <div class="col-5">
@@ -33,7 +33,7 @@
                 <label for="floatingInput">Share a link</label>
             </div>
             <div class="form-floating mb-3">
-                <input class="form-control" type="text" id="floatingInputValue" name="tags" placeholder="tags" multiple>
+                <input class="form-control" type="text" id="floatingInputValue" name="tags" placeholder="tags" value=" " multiple >
                 <label for="floatingInput">Add some tags</label>
             </div>
         </div>
@@ -66,11 +66,14 @@
                             <img src="{{blurb.image}}" class="card-img-top" alt="...">
                             {% endif %}
                             <div class="card-body">
+                                <h5>{{blurb.user}}</h5>
                                 {% for bio in bios%}
                                     {% if bio.user == blurb.user%}
-                                <a href="/bios/{{bio.id}}/"><h5 class="card-title">{{blurb.user}}</h5></a>
-                                    {% endif %}
+                                <a href="/bios/{{bio.id}}/"><p class="card-title">User Bio</p></a>
+                                        
+                                        {% endif %}
                                     {% endfor %}
+                                
                                 <p class="card-text">{{blurb.content}}</p>
                                 {% if blurb.link != "" %}
                                 <p>Link:</p>
@@ -79,7 +82,9 @@
                                 <p>tags:</p>
                                 <p>
                                     {% for tag in blurb.tags %}
+                                    
                                     #{{tag}}
+                                    
                                     {% endfor %}
                                 </p>
                                 <div>
@@ -100,14 +105,14 @@
 
                     <div class="col-3 p-3 border bg-light response-col w-100">
                         <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-primary m-3" data-toggle="collapse" href="#{{blurb.user}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a class="btn btn-primary m-3" data-toggle="collapse" href="#a{{blurb.id}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Responses
                             </a>
                         </div>
                         {% for response in responses %}
                         {% if response.blurb_id == blurb.id%}
                         
-                        <div class="collapse border p-2" id="{{blurb.user}}responses">
+                        <div class="collapse border p-2" id="a{{blurb.id}}responses">
     
                             <p><strong>{{response.user}}</strong></p>
                             <p class="p-2">{{response.content}}</p>

@@ -7,9 +7,10 @@ style
 home
 
 signup
-profile
+
 create/edit profile
 
+fix response display bug 
 
 remove about and blurb create pages
 
