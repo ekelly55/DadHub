@@ -1,33 +1,79 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-<h1>My Bio</h1>
+<div class="container-sm mt-5">
+    <div class="row">
+        <div class="col-6 bio-col">
+            <div class="d-flex align-items-center justify-content-center">
 
-    <div>
-        <p>Username: {{bio.user.username}}</p>
+                <div class="card" style="width: 30rem;">
+                    <h4 class="p-2"><strong>Username:</strong> {{bio.user}}</h4>
+                    <img src="{{bio.picture}}" class="card-img-top" alt="bio picture">
+                    <div class="card-body">
+                        <h5 class="card-title">About This Dad</h5>
+                        <p class="card-text">{{bio.bio}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
+                            {{bio.zip}}</li>
+                        <li class="list-group-item"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
+                            {%endfor %}</li>
+                        <li class="list-group-item"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- bio col -->
+        </div>
+        <div class="col-6 blurbs-col">
+            <h4 style="text-align: center;">{{bio.user}}'s Blurbs</h4>
+            <div class="container">
+                <div class="row">
+
+
+                    {% for blurb in blurbs %}
+                    {% if blurb.user == bio.user %}
+                    <div class="col single-blurb-col">
+                        <div class="card w-100 h-80 mt-2 mb-2">
+                            {% if blurb.image != "" %}
+                            <img src="{{blurb.image}}" class="card-img-top img-fluid.max-width: 100"
+                                style="max-width: 500px" alt="...">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{blurb.user}}</h5>
+                                <p class="card-text">{{blurb.content}}</p>
+                                {% if blurb.link != "" %}
+                                <p>Link:</p>
+                                <a href="{{blurb.link}}">{{blurb.link}}</a>
+                                {% endif %}
+                                <p>tags:</p>
+                                <p>
+                                    {% for tag in blurb.tags %}
+                                    #{{tag}}
+                                    {% endfor %}
+                                </p>
+                                <div>
+
+                                    {% if user == blurb.user %}
+                                    <a href="/{{blurb.id}}/delete"
+                                        class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- blurb card -->
+                        </div>
+                        <!-- single blurb col -->
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- blurbs row -->
+                </div>
+                <!-- blurbs container -->
+            </div>
+            <!--blurbs col  -->
+        </div>
+        <!-- full row -->
     </div>
-    <div>
-        <img src="{{bio.picture}}"/>
-    </div>
- 
-    <div>
-        <p>Location: {{bio.state}}, {{bio.county}} county, {{bio.zip}}</p>
-    </div>
-  
-    <div>
-        <p>Kids Ages:</p>
-        {% for age in bio.kids_ages%}
-        <p>{{age}}</p>
-        {% endfor %}
-    </div>
-    <div>
-        <p>Interests:</p>
-        {% for interest in bio.interests%}
-        <p>{{interest}}</p>
-        {% endfor %}
-    </div>
-    <div>
-        <p>About Me:</p>
-        <p>{{bio.bio}}</p>
-    </div>
+    <!-- full container -->
+</div>
+
 
 {% endblock %}
