@@ -10,8 +10,6 @@ signup
 
 create/edit profile
 
-fix response display bug 
-
 remove about and blurb create pages
 
 rather than clicking a button to see responses, what if the div was highlighted if responses exist? then the whole thing is a link to expand?
