@@ -4,8 +4,9 @@ MVP todo:
 
 func:
 
-
-
+pic fields should be urls or file upload
+response post should return to the blurb page?
+links should open in new page
 
 ]
 
