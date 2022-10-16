@@ -36,10 +36,6 @@ Upon signing up, the user is taken to a page to create a Bio. Once that is compl
 
 Part of the story of DadHub is that I created it during a period in which both of my twin 3-year-old sons were sick, so it is fitting that the initial concept sketches were done roughly on a notepad with my son next to me doodling on his own notepad. 
 
-### Blurbs Page
-
-Initially the Home page, I changed the homepage to a landing page/about page. 
-
 Blurbs: ![Blurbs](https://i.imgur.com/TU9z0q5.jpg "Blurbs")
 
 Blurb Detail: ![Blurb Detail](https://i.imgur.com/ks8Saln.jpg "Blurb Detail")
@@ -48,9 +44,17 @@ Hub Detail (concept for group page): ![Hub Detail](https://i.imgur.com/80iTrIB.j
 
 Bio: ![Bio](https://i.imgur.com/0FBoRWu.jpg "Bio")
 
-Blurbs: ![Blurbs](/wp.png "Blurbs")
-Blurbs: ![Blurbs](/wp.png "Blurbs")
-Blurbs: ![Blurbs](/wp.png "Blurbs")
-Blurbs: ![Blurbs](/wp.png "Blurbs")
-Blurbs: ![Blurbs](/wp.png "Blurbs")
+## ERD
 
+ERD: ![ERD](blob:https://imgur.com/9ea36179-064e-40ce-ac43-23f19df6a125 "ERD")
+
+## Deployed App
+
+Landing Page: ![Landing Page](https://i.imgur.com/OkdLJwL.png "Landing Page")
+Blurbs and Create Form: ![Blurbs and form](https://i.imgur.com/OkdLJwL.png "Blurbs and form")
+Blurbs: ![Blurbs](https://i.imgur.com/mLB2bGo.png "Blurbs")
+Bio Page: ![Bio](https://i.imgur.com/9Jap0LA.png "Bio")
+
+## Future Features and Improvements
+
+This represents the start of what I'm hoping to do with DadHub. In addition to giving it a more unique styling, I'd like to add a few more features. My vision for this is for dads to connect based on interest and, should they choose, location. Therefore my next step will be to create a search feature where users can find other users by name, location or interests, or where they can find content based on Blurb tags. From there, users will need a way to connect with each other and a way to communicate privately. I also want to include user interest groups, with their own sub-set of Blurbs visible only to members. Finally, I'd like to make the app location-based, allowing users to more easily filter and find other users in their area. 
