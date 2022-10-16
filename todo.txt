@@ -2,11 +2,31 @@ MVP todo:
 
 
 
+func:
 
-style
 
-done by wed? or thurs?
+
+
+]
+
+
+
+create/edit profile: these are form as p, so will take some work to redo. is it worth it?
+
+
+rather than clicking a button to see responses, what if the div was highlighted if responses exist? then the whole thing is a link to expand?
+
+
+next steps functionally:
+search function: tags, users
+add "follow" or "connect" functionally
+blurbs of those you follow look diff.
+add groups
+
+add weekly advice post
 
 try to add responses to responses
-get blurb form onto blurb page
+
+new model: my stuff. it contains all blurbs, and groups randomized. 
+
 

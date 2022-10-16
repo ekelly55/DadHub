@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Create a blurb here </h1>
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="submit" />
-</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1> Create a blurb here </h1>
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="submit" />
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

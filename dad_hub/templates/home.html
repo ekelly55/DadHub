@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> Welcome! </h1>
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <h1> Welcome to DadHub! </h1>
+            <div>
+                <h3>What is DadHub?</h3>
+                <p>DadHub is your place for dads to connect! Everyone always says, "Making friends as an adult is hard," and "Making friends as a man is hard." When you become a dad, you suddenly have great common ground for making friends: fatherhood. But while fatherhood is a tremendous shared experience, sometimes you want to make dad-friends who share your interests and passions and want to share them with their own kids, too, whether those passions are sports-ball or...Norwegian black metal. You belong here.<br> <strong>
+                    DadHub: for the average dads, for the weird dads, and every dad in between. 
+                </strong></p>
+
+                <h3>Who Can Join DadHub?</h3>
+                <p>DadHub is for anyone who identifies as a dad or father-figure, regardless of age, race, religion, socioeconomic status, sexual orientation or gender assigned at birth. Bio-dads, adoptive-dads, step-dads, grand-dads, queer dads, foster dads, etc, are all welcome!</p>
+            </div >
+            <div class="d-flex align-items-center justify-content-center">
+                                    
+                <a href="/accounts/login" class="btn btn-primary btn-lg m-5">Log In</a>
+                <a href="/accounts/signup" class="btn btn-success btn-lg m-5">Sign Up</a>
+                <a href="/blurbs" class="btn btn-secondary btn-lg m-5">Just Looking</a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}

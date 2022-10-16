@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1> You sure about that Dad? </h1>
-<form method="post">
-    {% csrf_token %}
-    <div class="buttons">
-        <input class="button is-danger" type="submit" value="Yes, delete" />
-        <a class="button is-primary" href="{% url 'home' %}">Nevermind</a>
-    </div>
-</form>
+<div class="container mt-5">
+    {% if request.user == blurb.user %}
+    <h1> You sure about that Dad? </h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="buttons">
+            <button class="btn btn-danger is-danger" type="submit">Yes, delete</button>
+            <a type="button" class="btn btn-success" href="{% url 'blurbs' %}">Nevermind</a>
+        </div>
+    </form>
+    {% else %}
+    <h3>Oops, are you lost?</h3>
+    <a href="/blurbs" class="btn btn-success btn-lg m-5">Back This Way</a>
+    {% endif %}
+</div>
 {% endblock %}

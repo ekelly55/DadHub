@@ -1,48 +1,90 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-<div>
-    <p>{{blurb.user}}</p>
-    <p>{{blurb.content}}</p>
-    <p></p>
-</div>
-<p>Respond to this Blurb</p>
-<form action="{% url 'response_create' blurb.pk %}" method="post">
-    {% csrf_token %}
-        <div class="control">
-            <input
-            class="input"
-            type="hidden"
-            name="{{user}}"
-            required=""
-            />
-        </div>
-       <div class="control">
 
-           <textarea
-           class="input"
-           type="text"
-           rows="3"
-           cols="30"
-           name="content"
-           required=""
-           ></textarea>
-        </div>
-        <div class="control"> 
-            <input
-            class="button is-primary"
-            type="submit"
-            value="Add Response"
-            />
-        </div>
-</form>
-        {% for response in responses %}
-            {% if response.blurb_id == blurb.id%}   
-                {{response.user}}
-                {{response.content}}
-                {% if user == response.user %}
-                <a href="/{{response.id}}/delete" class="button is-danger">Delete</a>
+
+<div class="container-sm blurb_container p-2">
+
+
+    <div class="row border bg-light blurb-and-response">
+        <div class="col blurb-col">
+
+            <div class="card w-100 h-80 mt-2 mb-2">
+                {% if blurb.image != "" %}
+                <img src="{{blurb.image}}" class="card-img-top" alt="...">
                 {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{blurb.user}}</h5>
+                    <p class="card-text">{{blurb.content}}</p>
+                    {% if blurb.link != "" %}
+                    <p>Link:</p>
+                    <a href="{{blurb.link}}">{{blurb.link}}</a>
+                    {% endif %}
+                    <p>tags:</p>
+                    <p>
+                        {% for tag in blurb.tags %}
+                        #{{tag}}
+                        {% endfor %}
+                    </p>
+                    <div>
+
+                        {% if user == blurb.user %}
+                        <a href="/{{blurb.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <!-- blurb col -->
+            
+            <div class="container mb-5">
+                <div class="row">
+                    
+                    <div class="col m-1">
+                        
+                        
+                        <form class="form-floating" action="{% url 'response_create' blurb.pk %}" method="post">
+                            {% csrf_token %}
+                            <input class="input" type="hidden" name="{{user}}" required="" />
+                            <div class="form-floating mb-3">
+                                
+                                <textarea class="form-control" type="text" id="floatingInputValue" name="content"
+                                style="height: 150px" placeholder="Respond to this Blurb" required=""></textarea>
+                                <label for="floatingInput">Respond to this Blurb</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col ms-5">
+                                <input class="button btn-secondary is-primary" type="submit" value="Add Response" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col p-3 border bg-light response-col w-100">
+                
+                {% for response in responses %}
+                {% if response.blurb_id == blurb.id%}
+                
+                <div class="border p-2" id="{{blurb.user}}responses">
+                    
+                    <p><strong>{{response.user}}</strong></p>
+                    <p class="p-2">{{response.content}}</p>
+                    {% if user == response.user %}
+                    <a href="/blurbs/{{response.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                {% endif %}
+            </div>
+
+
             {% endif %}
-        {% endfor %}
+            {% endfor %}
+            <!-- response col -->
+        </div>
+        <!-- blurb-response row -->
+    </div>
+
+    <!--  blurb container -->
+</div>
+
 
 {% endblock %}

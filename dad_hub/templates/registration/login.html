@@ -1,6 +1,20 @@
-<h1> Log In</h1>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %} {{form.as_p}}
-    <input type="submit" class="btn" value="login"/>
-    <input type="hidden" name="next" value="{{ next }}"/>
-</form>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            
+            <h1> Log In</h1>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %} {{form.as_p}}
+                <input type="submit" class="btn btn-sm btn-primary" value="Log In"/>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </form>
+            
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
