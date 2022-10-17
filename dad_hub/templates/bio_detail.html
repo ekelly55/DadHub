@@ -12,17 +12,17 @@
                         <h5 class="card-title">About This Dad</h5>
                         <p class="card-text">{{bio.bio}}</p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
+                    <ul class="list-group border-0 list-group-flush">
+                        <li class="list-group-item border-0"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
                             {{bio.zip}}</li>
-                        <li class="list-group-item"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
+                        <li class="list-group-item border-0"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
                             {%endfor %}</li>
-                        <li class="list-group-item"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
+                        <li class="list-group-item border-0"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
                     </ul>
                     {% if user == bio.user %}
                     <div class="d-flex align-items-center justify-content-center">
                                     
-                        <a href="/bios/{{bio.id}}/update" class="btn btn-secondary btn-sm">Update Bio</a>
+                        <a href="/bios/{{bio.id}}/update" class="btn btn-info shadow-lg btn-sm mb-2 m-2">Update Bio</a>
                     </div>
                     {% endif %}
                 </div>

@@ -1,138 +1,156 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="page-title pt-2 pb-2 ps-5 border">
+<div class="page-title pt-2 pb-2 ps-5" style="background-color: #3B876E">
 
-    <h1> My Hub </h1>
+    <h1 style="color: #CEE4DE"> My Hub </h1>
 </div>
 {% if request.user.is_authenticated %}
-<div class="container mt-5 mb-5">
-    <div class="row">
-
-        <div class="col-5">
-
-            <form class="form-floating" action="{% url 'blurb_create' %}" method="post">
-                {% csrf_token %}
-                <input class="input" type="hidden" name="{{user}}" required="" />
-                <div class="form-floating mb-3">
-
-                    <textarea class="form-control" type="text" id="floatingInputValue" name="content"
-                        style="height: 205px" placeholder="Start a conversation..." required=""></textarea>
-                    <label for="floatingInput">Start a conversation...</label>
-                </div>
-        </div>
-        <div class="col-4">
-
-            <div class="form-floating mb-3">
-                <input class="form-control" type="text" id="floatingInputValue" name="image"
-                    placeholder="add an image" />
-                <label for="floatingInput">Add a photo</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" type="text" id="floatingInputValue" name="link" placeholder="add a link" />
-                <label for="floatingInput">Share a link</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" type="text" id="floatingInputValue" name="tags" placeholder="tags" value=" " multiple >
-                <label for="floatingInput">Add some tags</label>
-            </div>
-        </div>
+<div class="d-flex align-items-center justify-content-center" >
+    <div class="container shadow-lg pt-4 pb-4 mt-5 mb-5 rounded" style="background-color: #2F3052">
         <div class="row">
-            <div class="col-1">
-                <button class="btn btn-secondary btn-sm" type="submit">Add Blurb</button>
+            
+
+                    <form class="form-floating" action="{% url 'blurb_create' %}" method="post">
+                        <div class="row d-flex justify-content-around">
+
+                            <div class="col-5">
+                                
+                                
+                                {% csrf_token %}
+                                <input class="input" type="hidden" name="{{user}}" required="" />
+                                <div class="form-floating mb-3">
+                                    
+                                    <textarea class="form-control" type="text" id="floatingInputValue" name="content"
+                                    style="height: 205px" placeholder="Start a conversation..." required=""></textarea>
+                                    <label for="floatingInput">Start a conversation...</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="text" id="floatingInputValue" name="image"
+                                    placeholder="add an image" />
+                                    <label for="floatingInput">Add a photo</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="text" id="floatingInputValue" name="link"
+                                    placeholder="add a link" />
+                                    <label for="floatingInput">Share a link</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" type="text" id="floatingInputValue" name="tags"
+                                    placeholder="tags" value=" " multiple>
+                                    <label for="floatingInput">Add some tags</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                                <div class="row ps-5">
+                                    <div class="col-1">
+
+                                        <button class="btn shadow-lg border-0 btn-info btn-sm" type="submit">Add Blurb</button>
+                                    </div>
+                                </div>
+                            
+                        </form>
+                        
+                    </div>
+                    
+                </div>
             </div>
-        </div>
-        </form>
-    </div>
-</div>
-{% endif %}
+            {% endif %}
 <div class="container-sm">
     <!-- blurb section container  -->
     <div class="row">
         <!-- blurb section row -->
 
         {% for blurb in blurbs %}
-        <div class="col-md m-2" style="min-width: 250px; max-width: 500px">
+        <div class="col-md m-2" style="min-width: 250px; max-width: 500px ">
             <!-- each blurb col -->
 
             <div class="container blurb_container p-2">
 
 
-                <div class="row border bg-light blurb-response row">
-                    <div class="col blurb-col">
-                        
-                        <div class="card w-100 h-80 mt-2 mb-2">
+                <div class="row border blurb-response row ">
+                    <div class="col w-75 border-0 blurb-col shadow-lg rounded" style="background-color: #3B876E">
+
+                        <div class="card w-100 h-80 mt-2 mb-2 border-0" style="background-color: #3B876E">
                             {% if blurb.image != "" %}
                             <img src="{{blurb.image}}" class="card-img-top" alt="...">
                             {% endif %}
-                            <div class="card-body">
-                                <h5>{{blurb.user}}</h5>
-                                {% for bio in bios%}
-                                    {% if bio.user == blurb.user%}
-                                <a href="/bios/{{bio.id}}/"><p class="card-title">User Bio</p></a>
-                                        
-                                        {% endif %}
-                                    {% endfor %}
-                                
+                            <h5 class="text-dark mt-2">{{blurb.user}}</h5>
+                            {% for bio in bios%}
+                            {% if bio.user == blurb.user%}
+                            <a style="text-decoration: none" href="/bios/{{bio.id}}/">
+                                <p class="card-title text-info">User Bio</p>
+                            </a>
+
+                            {% endif %}
+                            {% endfor %}
+
+                            <div class="card-body border-0 rounded bg-light">
                                 <p class="card-text">{{blurb.content}}</p>
                                 {% if blurb.link != "" %}
                                 <p>Link:</p>
                                 <a href="{{blurb.link}}">{{blurb.link}}</a>
                                 {% endif %}
-                                <p>tags:</p>
-                                <p>
-                                    {% for tag in blurb.tags %}
-                                    
-                                    #{{tag}}
-                                    
-                                    {% endfor %}
-                                </p>
-                                <div>
-                                    
-                                    {% if user == blurb.user %}
-                                    <a href="/{{blurb.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
-                                    {% endif %}
-                                </div>
-                                <div>
-                                    
-                                    <a href="/blurbs/{{blurb.id}}" class="btn btn-secondary btn-sm">Add a Response</a>
-                                </div>
+                            </div class="">
+                            <p class="pt-2">tags:</p>
+                            <p class="text-white">
+                                {% for tag in blurb.tags %}
+
+                                #{{tag}}
+
+                                {% endfor %}
+                            </p>
+                            <div>
+
+                                {% if user == blurb.user %}
+                                <a href="/{{blurb.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+                                {% endif %}
+                            </div>
+                            <div>
+
+                                <a href="/blurbs/{{blurb.id}}" class="btn shadow-lg btn-info btn-sm mb-2">Add a Response</a>
                             </div>
                         </div>
                         <!-- blurb col -->
                     </div>
 
 
-                    <div class="col-3 p-3 border bg-light response-col w-100">
+                    <div class="col-3 p-3 response-col w-100" style="background-color: #2F3052">
                         <div class="d-flex align-items-center justify-content-center">
-                            <a class="btn btn-primary m-3" data-toggle="collapse" href="#a{{blurb.id}}responses" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a class="btn shadow-lg btn-info m-3" data-toggle="collapse" href="#a{{blurb.id}}responses"
+                                role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Responses
                             </a>
                         </div>
                         {% for response in responses %}
                         {% if response.blurb_id == blurb.id%}
-                        
-                        <div class="collapse border p-2" id="a{{blurb.id}}responses">
-    
+
+                        <div class="collapse border bg-light mt-2 mb-2 p-2" id="a{{blurb.id}}responses">
+
                             <p><strong>{{response.user}}</strong></p>
                             <p class="p-2">{{response.content}}</p>
                             {% if user == response.user %}
                             <div>
-                                <a href="/blurbs/{{response.id}}/delete" class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
-                
+                                <a href="/blurbs/{{response.id}}/delete"
+                                    class="btn mb-2 btn-outline-warning btn-sm">Delete</a>
+
                             </div>
                             {% endif %}
-                        
-                      </div>
-                        
-                        
+
+                        </div>
+
+
                         {% endif %}
                         {% endfor %}
                         <!-- response col -->
                     </div>
-                <!-- blurb-response row -->
+                    <!-- blurb-response row -->
                 </div>
-            <!--  blurb container -->
+                <!--  blurb container -->
             </div>
 
 
