@@ -32,19 +32,22 @@
               <li class="nav-item">
                 <a class="nav-link active" style="color: #CEE4DE" aria-current="page" href="{% url 'logout' %}">Log Out</a>
               </li>
+              
               {% else %}
               <li class="nav-item">
                 <a class="nav-link active" style="color: #CEE4DE" aria-current="page" href="{% url 'login' %}">Log In</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Sign Up</a>
+                <a class="nav-link active" style="color: #CEE4DE" aria-current="page" href="{% url 'signup' %}">Sign Up</a>
               </li>
               {% endif %}
-           
-              
-        
             </ul>
-            <form class="d-flex">
+            {% if request.user.is_authenticated %}
+            <div>
+              <h3 class="pe-3" style="color: #CEE4DE">Welcome {{user}}</h3>
+            </div>
+            {% endif %}
+            <form class="d-flex pb-2">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn shadow-lg outline-0 btn-info" type="submit">Search</button>
             </form>
