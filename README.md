@@ -1,6 +1,6 @@
-# [DadHub] (https://dadhub.herokuapp.com/)
+# DadHub
 
-
+Visit [DadHub](https://dadhub.herokuapp.com/) here.
 
 ## Concept 
 
