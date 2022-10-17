@@ -4,14 +4,9 @@ MVP todo:
 
 func:
 
-
-
-
-]
-
-
-
-create/edit profile: these are form as p, so will take some work to redo. is it worth it?
+pic fields should be urls or file upload
+response post should return to the blurb page?
+links should open in new page
 
 
 rather than clicking a button to see responses, what if the div was highlighted if responses exist? then the whole thing is a link to expand?
