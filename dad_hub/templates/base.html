@@ -47,8 +47,8 @@
               <h3 class="pe-3" style="color: #CEE4DE">Welcome {{user}}</h3>
             </div>
             {% endif %}
-            <form class="d-flex pb-2">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex pb-2" action="{% url 'search_results' %}" method="get">
+              <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn shadow-lg outline-0 btn-info" type="submit">Search</button>
             </form>
           </div>
