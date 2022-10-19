@@ -20,7 +20,7 @@ class Blurb(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user, self.content, self.id
+        return str(self.user), str(self.content), str(self.id)
 
 
 
@@ -30,7 +30,7 @@ class Response(models.Model):
     response = models.ManyToManyField('self')
     content = models.TextField(max_length=1000, default=1)
     def __st__(self):
-        return self.user.username, self.content, self.blurb.content
+        return str(self.user.username), str(self.content), str(self.blurb.content)
 
 class Bio(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default = 1)
@@ -43,4 +43,4 @@ class Bio(models.Model):
     bio = models.TextField(max_length=200)
 
     def __str__(self):
-        return self.user
+        return str(self.user)

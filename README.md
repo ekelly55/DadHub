@@ -1,5 +1,7 @@
 # DadHub
 
+Visit [DadHub](https://dadhub.herokuapp.com/) here.
+
 ## Concept 
 
 ### What is DadHub?
@@ -50,10 +52,10 @@ ERD: ![ERD](https://i.imgur.com/peVd9xD.jpg "ERD")
 
 ## Deployed App
 
-Landing Page: ![Landing Page](https://i.imgur.com/6dtmNgv.png "Landing Page")
-Blurbs and Create Form: ![Blurbs and form](https://i.imgur.com/OkdLJwL.png "Blurbs and form")
-Blurbs: ![Blurbs](https://i.imgur.com/mLB2bGo.png "Blurbs")
-Bio Page: ![Bio](https://i.imgur.com/9Jap0LA.png "Bio")
+Landing Page: ![Landing Page](https://i.imgur.com/mpkZ74g.png "Landing Page")
+Blurbs and Create Form: ![Blurbs and form](https://i.imgur.com/ECcPueo.png "Blurbs and form")
+Blurbs: ![Blurbs](https://i.imgur.com/Vz3wuZN.png "Blurbs")
+Bio Page: ![Bio](https://i.imgur.com/YbvdoDf.png "Bio")
 
 ## Future Features and Improvements
 

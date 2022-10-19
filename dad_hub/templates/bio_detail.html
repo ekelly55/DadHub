@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container-sm mt-5">
     <div class="row">
-        <div class="col-6 bio-col">
+        <div class="col-md bio-col">
             <div class="d-flex align-items-center justify-content-center">
 
                 <div class="card" style="width: 30rem;">
@@ -29,15 +29,15 @@
             </div>
             <!-- bio col -->
         </div>
-        <div class="col-6 blurbs-col">
+        <div class="col-md blurbs-col">
             <h4 style="text-align: center;">{{bio.user}}'s Blurbs</h4>
-            <div class="container">
+            <div class="container-sm">
                 <div class="row">
 
 
                     {% for blurb in blurbs %}
                     {% if blurb.user == bio.user %}
-                    <div class="col single-blurb-col">
+                    <div class="col-sm single-blurb-col">
                         <div class="card w-100 h-80 mt-2 mb-2">
                             {% if blurb.image != "" %}
                             <img src="{{blurb.image}}" class="card-img-top img-fluid.max-width: 100"

@@ -8,14 +8,14 @@
         
         
         <div class="row border bg-light blurb-and-response" style="background-color: #CEE4DE">
-            <div class="col blurb-col rounded" style="background-color: #3B876E; border: solid; border-color:#CEE4DE; border-width: 30px">
+            <div class="col blurb-col" style="background-color: #3B876E; border: solid; border-color:#CEE4DE; border-width: 30px">
                 
                 <div class="card border-0 w-100 h-80 mt-2 mb-2" style="background-color: #3B876E">
                     {% if blurb.image != "" %}
                     <img src="{{blurb.image}}" class="card-img-top" alt="...">
                     {% endif %}
-                    <h5 class="card-title">{{blurb.user}}</h5>
-                    <div class="card-body" style="background-color: #CEE4DE">
+                    <h3 class="card-title" style="color: #CEE4DE">{{blurb.user}}</h3>
+                    <div class="card-body rounded" style="background-color: #CEE4DE">
                         <p class="card-text">{{blurb.content}}</p>
                         {% if blurb.link != "" %}
                         <p>Link:</p>
@@ -40,7 +40,7 @@
                 <div class="container mb-5">
                     <div class="row">
                         
-                        <div class="col m-1">
+                        <div class="col rounded m-1">
                             
                             
                             <form class="form-floating" action="{% url 'response_create' blurb.pk %}" method="post">
@@ -63,12 +63,12 @@
                 </div>
                 
             </div>
-            <div class="col response-col w-100 rounded" style="background-color: #2F3052; border: solid; border-color:#CEE4DE; border-width: 30px">
-                
+            <div class="col response-col w-100" style="background-color: #2F3052; border: solid; border-color:#CEE4DE; border-width: 30px">
+                <h3 class="pt-2" style="color: #CEE4DE">Responses</h3>
                 {% for response in responses %}
                 {% if response.blurb_id == blurb.id%}
                 
-                <div class="border p-2 mt-2 mb-2" id="{{blurb.user}}responses" style="background-color: #CEE4DE">
+                <div class="border rounded p-2 mt-2 mb-2" id="{{blurb.user}}responses" style="background-color: #CEE4DE">
                     
                     <p><strong>{{response.user}}</strong></p>
                     <p class="p-2" style="background-color: #CEE4DE">{{response.content}}</p>

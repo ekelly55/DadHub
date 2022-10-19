@@ -6,60 +6,62 @@
     <h1 style="color: #CEE4DE"> My Hub </h1>
 </div>
 {% if request.user.is_authenticated %}
-<div class="d-flex align-items-center justify-content-center" >
+<div class="d-flex align-items-center justify-content-center">
     <div class="container shadow-lg pt-4 pb-4 mt-5 mb-5 rounded" style="background-color: #2F3052">
         <div class="row">
-            
 
-                    <form class="form-floating" action="{% url 'blurb_create' %}" method="post">
-                        <div class="row d-flex justify-content-around">
 
-                            <div class="col-5">
-                                
-                                
-                                {% csrf_token %}
-                                <input class="input" type="hidden" name="{{user}}" required="" />
-                                <div class="form-floating mb-3">
-                                    
-                                    <textarea class="form-control" type="text" id="floatingInputValue" name="content"
-                                    style="height: 205px" placeholder="Start a conversation..." required=""></textarea>
-                                    <label for="floatingInput">Start a conversation...</label>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" id="floatingInputValue" name="image"
-                                    placeholder="add an image" />
-                                    <label for="floatingInput">Add a photo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" id="floatingInputValue" name="link"
-                                    placeholder="add a link" />
-                                    <label for="floatingInput">Share a link</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" type="text" id="floatingInputValue" name="tags"
-                                    placeholder="tags" value=" " multiple>
-                                    <label for="floatingInput">Add some tags</label>
-                                </div>
-                            </div>
-                            
+            <form class="form-floating container-sm" action="{% url 'blurb_create' %}" method="post">
+                <div class="row d-flex justify-content-around">
+
+                    <div class="col-md">
+
+
+                        {% csrf_token %}
+                        <input class="input" type="hidden" name="{{user}}" required="" />
+                        <div class="form-floating mb-3">
+
+                            <textarea class="form-control" type="text" id="floatingInputValue" name="content"
+                                style="height: 205px" placeholder="Start a conversation..." required=""></textarea>
+                            <label for="floatingInput">Start a conversation...</label>
                         </div>
-                                <div class="row ps-5">
-                                    <div class="col-1">
-
-                                        <button class="btn shadow-lg border-0 btn-info btn-sm" type="submit">Add Blurb</button>
-                                    </div>
-                                </div>
-                            
-                        </form>
-                        
                     </div>
-                    
+                    <div class="col-md">
+
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" id="floatingInputValue" name="image"
+                                placeholder="add an image" />
+                            <label for="floatingInput">Add a photo</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" id="floatingInputValue" name="link"
+                                placeholder="add a link" />
+                            <label for="floatingInput">Share a link</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="text" id="floatingInputValue" name="tags"
+                                placeholder="tags" value=" " multiple>
+                            <label for="floatingInput">Add some tags</label>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-            {% endif %}
+                <div class="row ps-5">
+                    <div class="col-1">
+
+                        <button class="btn shadow-lg border-0 btn-info btn-sm" type="submit">Add Blurb</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+
 <div class="container-sm">
     <!-- blurb section container  -->
     <div class="row">
@@ -72,12 +74,12 @@
             <div class="container blurb_container p-2">
 
 
-                <div class="row border blurb-response row ">
-                    <div class="col w-75 border-0 blurb-col shadow-lg rounded" style="background-color: #3B876E">
+                <div class="row border blurb-response-row me-2">
+                    <div class="col w-75 border-0 blurb-col shadow-lg  rounded-top" style="background-color: #3B876E">
 
                         <div class="card w-100 h-80 mt-2 mb-2 border-0" style="background-color: #3B876E">
                             {% if blurb.image != "" %}
-                            <img src="{{blurb.image}}" class="card-img-top" alt="...">
+                            <img src="{{blurb.image}}" class="card-img-top" alt="photo in blurb">
                             {% endif %}
                             <h5 class="text-dark mt-2">{{blurb.user}}</h5>
                             {% for bio in bios%}
@@ -112,14 +114,17 @@
                             </div>
                             <div>
 
-                                <a href="/blurbs/{{blurb.id}}" class="btn shadow-lg btn-info btn-sm mb-2">Add a Response</a>
+                                <a href="/blurbs/{{blurb.id}}" class="btn shadow-lg btn-info btn-sm mb-2">Add a
+                                    Response</a>
                             </div>
                         </div>
                         <!-- blurb col -->
+
                     </div>
 
 
-                    <div class="col-3 p-3 response-col w-100" style="background-color: #2F3052">
+
+                    <div class="col-3 p-3 rounded-bottom response-col w-100" style="max-width: 500px; background-color: #2F3052">
                         <div class="d-flex align-items-center justify-content-center">
                             <a class="btn shadow-lg btn-info m-3" data-toggle="collapse" href="#a{{blurb.id}}responses"
                                 role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -161,4 +166,5 @@
     </div>
     <!-- blurb section container -->
 </div>
+
 {% endblock %}
