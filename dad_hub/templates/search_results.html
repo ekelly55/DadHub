@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container-sm">
+    <h1> Search Results: </h1>
+    <h2> Blurbs </h2>
+    <!-- blurb section container  -->
+    <div class="row">
+        <!-- blurb section row -->
+
+        {% for blurb in blurbs %}
+        <div class="col-md m-2" style="min-width: 250px; max-width: 500px ">
+            <!-- each blurb col -->
+
+            <div class="container blurb_container p-2">
+
+
+                <div class="row border blurb-response-row me-2">
+                    <div class="col w-75 border-0 blurb-col shadow-lg  rounded-top" style="background-color: #3B876E">
+
+                        <div class="card w-100 h-80 mt-2 mb-2 border-0" style="background-color: #3B876E">
+                            {% if blurb.image != "" %}
+                            <img src="{{blurb.image}}" class="card-img-top" alt="photo in blurb">
+                            {% endif %}
+                            <h5 class="text-dark mt-2">{{blurb.user}}</h5>
+                            {% for bio in bios%}
+                            {% if bio.user == blurb.user%}
+                            <a style="text-decoration: none" href="/bios/{{bio.id}}/">
+                                <p class="card-title text-info">User Bio</p>
+                            </a>
+
+                            {% endif %}
+                            {% endfor %}
+
+                            <div class="card-body border-0 rounded bg-light">
+                                <p class="card-text">{{blurb.content}}</p>
+                                {% if blurb.link != "" %}
+                                <p>Link:</p>
+                                <a href="{{blurb.link}}">{{blurb.link}}</a>
+                                {% endif %}
+
+                                <p class="pt-2">tags:</p>
+                                <p class="text-black">
+                                    {% for tag in blurb.tags %}
+
+                                    #{{tag}}
+
+                                    {% endfor %}
+                                </p>
+
+                            </div>
+                            <!-- blurb col -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container-sm">
+    <h2>Dads</h2>
+    <!-- bio section container  -->
+    <div class="row">
+        <!-- bio section row -->
+
+        {% for bio in bios %}
+        <div class="col-md m-2" style="min-width: 250px; max-width: 500px ">
+            <!-- each bio col -->
+
+            <div class="container bio_container p-2">
+
+
+                <div class="row border bio-response-row me-2">
+                    <div class="col w-75 border-0 bio-col shadow-lg  rounded-top" style="background-color: #3B876E">
+
+                        <div class="card w-100 h-80 mt-2 mb-2 border-0" style="background-color: #3B876E">
+                            {% if bio.picture != "" %}
+                            <img src="{{bio.picture}}" class="card-img-top" alt="photo in bio">
+                            {% endif %}
+                            <h5 class="text-dark mt-2">{{bio.user}}</h5>
+                            
+                            <a style="text-decoration: none" href="/bios/{{bio.id}}/">
+                                <p class="card-title text-info">User Bio</p>
+                            </a>
+
+                            
+                            
+                            <div class="card-body border-0 rounded bg-light">
+                                <p class="card-text">{{bio.bio}}</p>
+                                
+                                
+                                <ul class="list-group border-0 list-group-flush">
+                                    <li class="list-group-item border-0"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
+                                        {{bio.zip}}</li>
+                                    <li class="list-group-item border-0"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
+                                        {%endfor %}</li>
+                                    <li class="list-group-item border-0"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
+                                </ul>
+
+                                
+                             
+                                
+                               
+                            </div>
+                            <!-- bio col -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

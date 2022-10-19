@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
 from django.views.generic.base import TemplateView
-from django.views.generic import DetailView # <- View class to handle requests
+from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -21,9 +21,16 @@ class Home(TemplateView):
     template_name = 'home.html'
    
 
-class About(TemplateView):
-    template_name = 'about.html'
-    
+class SearchResults(ListView):
+    model=Blurb
+    template_name = 'search_results.html'
+    def get_context_data(self, **kwargs,):
+        context = super().get_context_data(**kwargs)
+        search = self.request.GET.get('q')
+        context['blurbs'] = Blurb.objects.filter(tags__icontains=search)
+        context['bios'] = Bio.objects.filter(interests__icontains=search)
+        return context
+
 class Signup(View):
     def get(self, request):
         form=UserCreationForm()
