@@ -57,19 +57,30 @@ class SearchResults(ListView):
         # Get the user's location
         user_location = self.get_user_location()
         if user_location is not None:
+             # Create a dictionary to store the distance for each bio, since distance isn't a part of the bio model
+            bio_distances = {}
             # Calculate the distance between the user's location and the location of each bio
+            geolocator = Nominatim(user_agent='myapp')
             for bio in context['bios']:
-                if bio is not None and bio.state and bio.zip:
+                if bio.state and bio.zip:
                     address2 = f"{bio.state} {bio.zip}"
-                    geolocator = Nominatim(user_agent='myapp')
-                try:
-                    bio_location = geolocator.geocode(address2)
-                except GeocoderTimedOut as e:
-                    return None
-                if address2 is not None:
-                    
-                    bio_distance = distance(user_location, bio_location).mi
-                    bio.distance_mi = bio_distance.mi # add distance_mi attribute to bio instance
+                    try:
+                        bio_location = geolocator.geocode(address2)
+                    except GeocoderTimedOut as e:
+                        bio_location = None
+                    if bio_location is not None:
+                        bio_distance = distance(user_location, (bio_location.latitude, bio_location.longitude)).mi
+                    # # get lat and long from bio_location
+                    #     bio_lat = bio_location.latitude
+                    #     bio_lon = bio_location.longitude
+                    #     bio_point = (bio_lat, bio_lon)
+                    # #user_location was passed as a tuple, so here we set the user point that way. but why can't we just say "user location?"
+                    # # print(user_location)
+                    # user_point = (user_location[0], user_location[1])
+                    # bio_distance = distance(user_point, bio_point).mi
+                        bio_distances[bio.id] = bio_distance 
+            # Pass the bio_distances dictionary to the context, just like we did with blurbs and bios
+            context['bio_distances'] = bio_distances
         return context
     def get_user_location(self):
         # Get the user's location
