@@ -11,9 +11,34 @@ from django.contrib.auth import login
 from .models import Bio, Blurb, Response
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import JsonResponse
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
+from geopy.distance import distance, geodesic
 
-
-
+#geopy test
+def distance_to_user(request):
+    geolocator = Nominatim(user_agent='myapp')
+    address1 = 'framingham, ma'
+    address2 = 'shrewsbury, nj'
+    try:
+        location1 = geolocator.geocode(address1)
+        location2 = geolocator.geocode(address2)
+    except GeocoderTimedOut as e:
+        return JsonResponse({'error': 'Geocoding failed: {}'.format(e)})
+    if location1 is not None and location2 is not None:
+        point1 = (location1.latitude, location1.longitude)
+        point2 = (location2.latitude, location2.longitude)
+        distance_km = distance(point1, point2).km
+        distance_mi = distance(point1, point2).mi
+        distance_nm = geodesic(point1, point2).nm
+        return JsonResponse({
+            'distance_km': distance_km,
+            'distance_mi': distance_mi,
+            'distance_nm': distance_nm
+        })
+    else:
+        return JsonResponse({'error': 'Geocoding failed for address: {}, {}'.format(address1, address2)})
 # Create your views here.
 
 # Here we will be creating a class called Home and extending it from the View class
@@ -29,7 +54,41 @@ class SearchResults(ListView):
         search = self.request.GET.get('q')
         context['blurbs'] = Blurb.objects.filter(tags__icontains=search)
         context['bios'] = Bio.objects.filter(interests__icontains=search)
+        # Get the user's location
+        user_location = self.get_user_location()
+        if user_location is not None:
+            # Calculate the distance between the user's location and the location of each bio
+            for bio in context['bios']:
+                if bio is not None and bio.state and bio.zip:
+                    address2 = f"{bio.state} {bio.zip}"
+                    geolocator = Nominatim(user_agent='myapp')
+                try:
+                    bio_location = geolocator.geocode(address2)
+                except GeocoderTimedOut as e:
+                    return None
+                if address2 is not None:
+                    
+                    bio_distance = distance(user_location, bio_location).mi
+                    bio.distance_mi = bio_distance.mi # add distance_mi attribute to bio instance
         return context
+    def get_user_location(self):
+        # Get the user's location
+        # You can customize this function to get the user's location in whatever way you like
+        # For example, you can use the user's IP address to estimate their location, or ask them to enter their address
+        # For this example, we'll use a hard-coded address
+        user = self.request.user
+        if user.is_authenticated:
+            user_bio = user.bio
+            if user_bio is not None and user_bio.state and user_bio.zip:
+                address1 = f"{user_bio.state} {user_bio.zip}"
+                geolocator = Nominatim(user_agent='myapp')
+                try:
+                    user_location = geolocator.geocode(address1)
+                except GeocoderTimedOut as e:
+                    return None
+                if user_location is not None:
+                    return (user_location.latitude, user_location.longitude)
+        return None
 
 class Signup(View):
     def get(self, request):
