@@ -15,5 +15,4 @@ urlpatterns = [
     path('bios/<int:pk>/', views.BioDetail.as_view(), name='bio_detail'),
     path('bios/<int:pk>/update/', views.BioUpdate.as_view(), name="bio_update"),
     path('searchresults/', views.SearchResults.as_view(), name='search_results'),
-    path('geocode/', views.distance_to_user, name='geocode'),
 ]

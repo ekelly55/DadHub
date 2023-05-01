@@ -11,6 +11,7 @@ django-heroku = "*"
 gunicorn = "*"
 whitenoise = "*"
 geopy = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

@@ -16,29 +16,7 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.distance import distance, geodesic
 
-#geopy test
-def distance_to_user(request):
-    geolocator = Nominatim(user_agent='myapp')
-    address1 = 'framingham, ma'
-    address2 = 'shrewsbury, nj'
-    try:
-        location1 = geolocator.geocode(address1)
-        location2 = geolocator.geocode(address2)
-    except GeocoderTimedOut as e:
-        return JsonResponse({'error': 'Geocoding failed: {}'.format(e)})
-    if location1 is not None and location2 is not None:
-        point1 = (location1.latitude, location1.longitude)
-        point2 = (location2.latitude, location2.longitude)
-        distance_km = distance(point1, point2).km
-        distance_mi = distance(point1, point2).mi
-        distance_nm = geodesic(point1, point2).nm
-        return JsonResponse({
-            'distance_km': distance_km,
-            'distance_mi': distance_mi,
-            'distance_nm': distance_nm
-        })
-    else:
-        return JsonResponse({'error': 'Geocoding failed for address: {}, {}'.format(address1, address2)})
+
 # Create your views here.
 
 # Here we will be creating a class called Home and extending it from the View class
@@ -56,9 +34,9 @@ class SearchResults(ListView):
         context['bios'] = Bio.objects.filter(interests__icontains=search)
         # Get the user's location
         user_location = self.get_user_location()
-        if user_location is not None:
              # Create a dictionary to store the distance for each bio, since distance isn't a part of the bio model
-            bio_distances = {}
+        bio_distances = {}
+        if user_location is not None:
             # Calculate the distance between the user's location and the location of each bio
             geolocator = Nominatim(user_agent='myapp')
             for bio in context['bios']:
@@ -70,6 +48,8 @@ class SearchResults(ListView):
                         bio_location = None
                     if bio_location is not None:
                         bio_distance = distance(user_location, (bio_location.latitude, bio_location.longitude)).mi
+                        bio.distance_mi = bio_distance
+                        bio_distances[bio.id] = bio_distance
                     # # get lat and long from bio_location
                     #     bio_lat = bio_location.latitude
                     #     bio_lon = bio_location.longitude
@@ -78,9 +58,10 @@ class SearchResults(ListView):
                     # # print(user_location)
                     # user_point = (user_location[0], user_location[1])
                     # bio_distance = distance(user_point, bio_point).mi
-                        bio_distances[bio.id] = bio_distance 
+            #             bio_distances[bio.id] = bio_distance
             # Pass the bio_distances dictionary to the context, just like we did with blurbs and bios
             context['bio_distances'] = bio_distances
+            print(context['bio_distances']) 
         return context
     def get_user_location(self):
         # Get the user's location

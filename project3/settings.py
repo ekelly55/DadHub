@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'dad_hub',
 ]
 
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'project3.urls'
@@ -129,6 +131,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'dad_hub/static')]
 
 LOGIN_REDIRECT_URL = '/blurbs'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+INTERNAL_IPS = [    '127.0.0.1',]
+
 
 import django_heroku
 django_heroku.settings(locals())

@@ -65,7 +65,7 @@
     <!-- bio section container  -->
     <div class="row">
         <!-- bio section row -->
-
+        
         {% for bio in bios %}
         <div class="col-md m-2" style="min-width: 250px; max-width: 500px ">
             <!-- each bio col -->
@@ -81,7 +81,6 @@
                             <img src="{{bio.picture}}" class="card-img-top" alt="photo in bio">
                             {% endif %}
                             <h5 class="text-dark mt-2">{{bio.user}}</h5>
-                            
                             <a style="text-decoration: none" href="/bios/{{bio.id}}/">
                                 <p class="card-title text-info">User Bio</p>
                             </a>
@@ -95,9 +94,9 @@
                                 <ul class="list-group border-0 list-group-flush">
                                     <li class="list-group-item border-0"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
                                         {{bio.zip}}</li>
-                                        {% if bio.id in bio_distances %}
-                                        <li>Distance: {{ bio_distances[bio.id]}} mi</li>
-                                        {% endif %}
+                                    {% if bio.id in bio_distances %}
+                                    <li>Distance: {{ bio_distances[bio.id] }} mi</li>
+                                    {% endif %}
                                     <li class="list-group-item border-0"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
                                         {%endfor %}</li>
                                     <li class="list-group-item border-0"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
