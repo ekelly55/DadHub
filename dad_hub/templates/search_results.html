@@ -95,7 +95,7 @@
                                     <li class="list-group-item border-0"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
                                         {{bio.zip}}</li>
                                     {% if bio.id in bio_distances %}
-                                    <li>Distance: {{ bio_distances[bio.id] }} mi</li>
+                                    <!-- <li>Distance: {{ bio_distances[bio.id] }} mi</li> -->
                                     {% endif %}
                                     <li class="list-group-item border-0"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
                                         {%endfor %}</li>

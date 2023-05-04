@@ -1,5 +1,5 @@
 from re import template
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from django.views import View
@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from .models import Bio, Blurb, Response
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -15,7 +15,6 @@ from django.http import JsonResponse
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.distance import distance, geodesic
-
 
 # Create your views here.
 
@@ -27,9 +26,20 @@ class Home(TemplateView):
 class SearchResults(ListView):
     model=Blurb
     template_name = 'search_results.html'
+    def get_queryset(self):
+        # get the default queryset
+        queryset = super().get_queryset()
+
+        # add a filter to the queryset to only show objects for the logged in user
+        queryset = queryset.filter(user=self.request.user)
+
+        # return the filtered queryset
+        return queryset
+    
     def get_context_data(self, **kwargs,):
         context = super().get_context_data(**kwargs)
         search = self.request.GET.get('q')
+        context['user'] = self.request.user
         context['blurbs'] = Blurb.objects.filter(tags__icontains=search)
         context['bios'] = Bio.objects.filter(interests__icontains=search)
         # Get the user's location
@@ -42,12 +52,13 @@ class SearchResults(ListView):
             for bio in context['bios']:
                 if bio.state and bio.zip:
                     address2 = f"{bio.state} {bio.zip}"
+                    print("Address being passed to Nominatim:", address2)
                     try:
                         bio_location = geolocator.geocode(address2)
                     except GeocoderTimedOut as e:
                         bio_location = None
                     if bio_location is not None:
-                        bio_distance = distance(user_location, (bio_location.latitude, bio_location.longitude)).mi
+                        bio_distance = distance(user_location, bio_location).mi
                         bio.distance_mi = bio_distance
                         bio_distances[bio.id] = bio_distance
                     # # get lat and long from bio_location
@@ -64,24 +75,18 @@ class SearchResults(ListView):
             print(context['bio_distances']) 
         return context
     def get_user_location(self):
-        # Get the user's location
-        # You can customize this function to get the user's location in whatever way you like
-        # For example, you can use the user's IP address to estimate their location, or ask them to enter their address
-        # For this example, we'll use a hard-coded address
+        # Get the user's location using info in their bio
         user = self.request.user
-        if user.is_authenticated:
-            user_bio = user.bio
-            if user_bio is not None and user_bio.state and user_bio.zip:
-                address1 = f"{user_bio.state} {user_bio.zip}"
-                geolocator = Nominatim(user_agent='myapp')
-                try:
-                    user_location = geolocator.geocode(address1)
-                except GeocoderTimedOut as e:
-                    return None
-                if user_location is not None:
-                    return (user_location.latitude, user_location.longitude)
-        return None
+        
 
+        user_model = get_user_model()
+
+        if not isinstance(user, user_model):
+            user = get_object_or_404(user_model, pk=user)
+    
+        bio = get_object_or_404(Bio, user=user)
+        return bio.state, bio.zip
+       
 class Signup(View):
     def get(self, request):
         form=UserCreationForm()
