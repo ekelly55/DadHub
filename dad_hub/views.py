@@ -10,38 +10,43 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, get_user_model
 from .models import Bio, Blurb, Response
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.distance import distance, geodesic
 
 # Create your views here.
 
+# login required
+
+
 # Here we will be creating a class called Home and extending it from the View class
 class Home(TemplateView):
     template_name = 'home.html'
-   
 
-class SearchResults(ListView):
+
+
+
+class SearchResults(LoginRequiredMixin, ListView):
+    
     model=Blurb
     template_name = 'search_results.html'
-    def get_queryset(self):
-        # get the default queryset
-        queryset = super().get_queryset()
-
-        # add a filter to the queryset to only show objects for the logged in user
-        queryset = queryset.filter(user=self.request.user)
-
-        # return the filtered queryset
-        return queryset
     
     def get_context_data(self, **kwargs,):
         context = super().get_context_data(**kwargs)
         search = self.request.GET.get('q')
-        context['user'] = self.request.user
+        user = self.request.user
+     
         context['blurbs'] = Blurb.objects.filter(tags__icontains=search)
         context['bios'] = Bio.objects.filter(interests__icontains=search)
+
+        print(user)
+        # print(context['bios'])
+        
         # Get the user's location
         user_location = self.get_user_location()
              # Create a dictionary to store the distance for each bio, since distance isn't a part of the bio model
@@ -86,6 +91,7 @@ class SearchResults(ListView):
     
         bio = get_object_or_404(Bio, user=user)
         return bio.state, bio.zip
+    
        
 class Signup(View):
     def get(self, request):
