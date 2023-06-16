@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.template import RequestContext
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 from geopy.distance import distance, geodesic
@@ -81,8 +82,10 @@ class SearchResults(LoginRequiredMixin, ListView):
                     if bio_location is not None:
                         bio_distance = distance(user_coord, bio_coord).mi
                         bio_distances[bio.id] = bio_distance
-                        print(bio_distances)
-                                
+                        # print(bio_distances)
+
+        context['bio_distances'] = bio_distances
+        # print(context['bio_distances'])                         
         return context
    
     

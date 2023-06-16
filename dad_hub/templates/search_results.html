@@ -94,9 +94,11 @@
                                 <ul class="list-group border-0 list-group-flush">
                                     <li class="list-group-item border-0"><strong>Location:</strong><br> {{bio.state}}, {{bio.county}} county,
                                         {{bio.zip}}</li>
-                                    {% if bio.id in bio_distances %}
-                                    
-                                    {% endif %}
+                                    {% with bio_distance=bio_distances.bio.id %}
+                                        {% if bio_distance %}
+                                        <li> {{bio_distance}} mi away</li>
+                                        {% endif %}
+                                    {% endwith %}
                                     <li class="list-group-item border-0"><strong>Kids' Ages:</strong> {% for age in bio.kids_ages%}{{age}},
                                         {%endfor %}</li>
                                     <li class="list-group-item border-0"><strong>Interests: </strong><br>{% for interest in bio.interests%}{{interest}}, {% endfor %}</li>
