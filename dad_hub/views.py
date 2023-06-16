@@ -40,57 +40,51 @@ class SearchResults(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         search = self.request.GET.get('q')
         user = self.request.user
+
+        query = Q(interests__icontains = search) | Q(user=user)
      
         context['blurbs'] = Blurb.objects.filter(tags__icontains=search)
-        context['bios'] = Bio.objects.filter(interests__icontains=search)
+        context['bios'] = Bio.objects.filter(query)
 
-        print(user)
         # print(context['bios'])
         
         # Get the user's location
-        user_location = self.get_user_location()
-             # Create a dictionary to store the distance for each bio, since distance isn't a part of the bio model
+        # trying here to extract location info from the current user's bio
+        user_bio = get_object_or_404(Bio, user=user)
+        # print(user_bio)
+        
+
+        geolocator = Nominatim(user_agent='myapp')
+
+        user_location = f"{user_bio.zip} {user_bio.state}"
+       
+        # print(user_location)
+
+        user_coord = (geolocator.geocode(user_location).latitude, geolocator.geocode(user_location).longitude)
+
+        # print(user_coord)
+
+             # Create a dictionary to store the distance for each bio after they're calculated, since distance isn't a part of the bio model
         bio_distances = {}
-        if user_location is not None:
+        if user_coord is not None:
             # Calculate the distance between the user's location and the location of each bio
-            geolocator = Nominatim(user_agent='myapp')
             for bio in context['bios']:
                 if bio.state and bio.zip:
-                    address2 = f"{bio.state} {bio.zip}"
-                    print("Address being passed to Nominatim:", address2)
+                    address2 = f"{bio.zip} {bio.state}"
+                    # print("Address being passed to Nominatim:", address2)
                     try:
                         bio_location = geolocator.geocode(address2)
+                        bio_coord = (bio_location.latitude, bio_location.longitude)
+                        # print(bio_coord)
                     except GeocoderTimedOut as e:
                         bio_location = None
                     if bio_location is not None:
-                        bio_distance = distance(user_location, bio_location).mi
-                        bio.distance_mi = bio_distance
+                        bio_distance = distance(user_coord, bio_coord).mi
                         bio_distances[bio.id] = bio_distance
-                    # # get lat and long from bio_location
-                    #     bio_lat = bio_location.latitude
-                    #     bio_lon = bio_location.longitude
-                    #     bio_point = (bio_lat, bio_lon)
-                    # #user_location was passed as a tuple, so here we set the user point that way. but why can't we just say "user location?"
-                    # # print(user_location)
-                    # user_point = (user_location[0], user_location[1])
-                    # bio_distance = distance(user_point, bio_point).mi
-            #             bio_distances[bio.id] = bio_distance
-            # Pass the bio_distances dictionary to the context, just like we did with blurbs and bios
-            context['bio_distances'] = bio_distances
-            print(context['bio_distances']) 
+                        print(bio_distances)
+                                
         return context
-    def get_user_location(self):
-        # Get the user's location using info in their bio
-        user = self.request.user
-        
-
-        user_model = get_user_model()
-
-        if not isinstance(user, user_model):
-            user = get_object_or_404(user_model, pk=user)
-    
-        bio = get_object_or_404(Bio, user=user)
-        return bio.state, bio.zip
+   
     
        
 class Signup(View):
